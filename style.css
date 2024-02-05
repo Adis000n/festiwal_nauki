@@ -1,0 +1,54 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.popUp{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 1%;
+    width: 85%;
+    height: 50%;
+    background-color: rgb(120, 120, 120);
+    border-radius: 6px;
+    padding: 1%;
+    box-shadow: 5px 10px 8px #3b3b3b;
+}
+#pytanie{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.true-false-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px; /* Adjust as needed */
+}
+
+.true-false-buttons button {
+    margin: 0 5px; /* Adjust spacing between buttons */
+    flex-grow: 1; /* Distribute available space equally between buttons */
+}
+
+#plansza {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 900px;
+    height: 850px;
+    background-color: #797979;
+    /* background-image: url('your-image-url.jpg'); */
+    background-size: cover; /* Adjust to cover the entire div */
+    background-position: center; /* Center the background image */
+    border: 1px solid black; /* Example border */
+    border-radius: 10px; /* Example border radius */
+    box-shadow: 5px 10px 8px #3b3b3b; /* Example box shadow */
+    z-index: -9999;
+}
+
