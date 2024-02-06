@@ -40,55 +40,12 @@ if (!$con) {
         <div id="pytanie-tresc">
         </div>
         <form id="answer-form" method="post">
-        <!-- PRAWDA FAŁSZ -->
-        <!-- <div class="true-false-buttons">
-            <button type="button" class="btn btn-success btn-lg true-button" data-value="true">Prawda</button>
-            <button type="button" class="btn btn-danger btn-lg false-button" data-value="false">Fałsz</button>
-        </div>
-        <input type="hidden" id="answer-input" name="answer" value=""> -->
-        <!-- ZAMKNIĘTE -->
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="answer" id="answer-a" value="a">
-            <label class="form-check-label" for="answer-a">
-                A
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="answer" id="answer-b" value="b">
-            <label class="form-check-label" for="answer-b">
-                B
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="answer" id="answer-c" value="c">
-            <label class="form-check-label" for="answer-c">
-                C
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="answer" id="answer-d" value="d">
-            <label class="form-check-label" for="answer-d">
-                D
-            </label>
-        </div>
-        <button type="submit" class="btn btn-warning btn-lg" onclick="answerQuestion()" >Zatwierdź</button>
-        <!-- OTWARTE -->
-        <!-- <div class="form-floating mb-3" id="klasa-id">
-            <input type="text" class="form-control" id="floatingInput" placeholder="odpowiedz" name="odpowiedz">
-            <label for="floatingInput">Wpisz odpowiedź</label>
-        </div> 
-        <button type="submit" class="btn btn-warning btn-lg" >Zatwierdź</button> -->
         </form>
     </div>
     <div id="plansza">
 
     </div>
     <button type="submit" class="btn btn-dark btn-lg" onclick="showQuestion()">Wyświetl pytanie</button>
-    <?php
-    // if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    //     echo $_POST["answer"];
-    // }
-    ?> 
 </body>
 <script>
     
@@ -111,16 +68,69 @@ if (!$con) {
     function showQuestion() {
         document.getElementById('pytanie').removeAttribute('hidden');
         const xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        const response = xhr.responseText;
-                        document.getElementById('pytanie-tresc').innerHTML = response;
-                        pytanie_nr += 1;
-                        console.log(pytanie_nr);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                const response = xhr.responseText;
+                document.getElementById('pytanie-tresc').innerHTML = response;
+                console.log(pytanie_nr);
+            }
+        };
+        xhr.open('GET', `script-tresc.php?pytanie_nr=${pytanie_nr}`, true);
+        xhr.send();
+        const xhr2 = new XMLHttpRequest();
+        xhr2.onreadystatechange = function () {
+            if (xhr2.readyState === 4 && xhr2.status === 200) {
+                const response2 = xhr2.responseText;
+                document.getElementById('answer-form').innerHTML = response2;
+                if (response2 === 'open') {
+                    const inputDiv = document.createElement('div');
+                    inputDiv.classList.add('form-floating', 'mb-3');
+                    inputDiv.id = 'klasa-id';
+                    inputDiv.innerHTML = `
+                        <input type="text" class="form-control" id="floatingInput" placeholder="odpowiedz" name="odpowiedz">
+                        <label for="floatingInput">Wpisz odpowiedź</label>
+                    `;
+                    document.getElementById('answer-form').appendChild(inputDiv);
+                    const submitButton = document.createElement('button');
+                    submitButton.type = 'submit';
+                    submitButton.classList.add('btn', 'btn-warning', 'btn-lg');
+                    submitButton.textContent = 'Zatwierdź';
+                    document.getElementById('answer-form').appendChild(submitButton);
+                } else if (response2 === 'closed') {
+                    const options = ['A', 'B', 'C', 'D'];
+                    for (let option of options) {
+                        const radioDiv = document.createElement('div');
+                        radioDiv.classList.add('form-check');
+                        radioDiv.innerHTML = `
+                            <input class="form-check-input" type="radio" name="answer" id="answer-${option.toLowerCase()}" value="${option.toLowerCase()}">
+                            <label class="form-check-label" for="answer-${option.toLowerCase()}">
+                                ${option}
+                            </label>
+                        `;
+                        document.getElementById('answer-form').appendChild(radioDiv);
                     }
-                };
-                xhr.open('GET', `script.php?pytanie_nr=${pytanie_nr}`, true);
-                xhr.send();
+                } else if (response2 === 'tf') {
+                    const trueFalseButtonsDiv = document.createElement('div');
+                    trueFalseButtonsDiv.classList.add('true-false-buttons');
+                    trueFalseButtonsDiv.innerHTML = `
+                        <button type="button" class="btn btn-success btn-lg true-button" data-value="true">Prawda</button>
+                        <button type="button" class="btn btn-danger btn-lg false-button" data-value="false">Fałsz</button>
+                    `;
+                    document.getElementById('answer-form').appendChild(trueFalseButtonsDiv);
+                    const answerInput = document.createElement('input');
+                    answerInput.type = 'hidden';
+                    answerInput.id = 'answer-input';
+                    answerInput.name = 'answer';
+                    answerInput.value = '';
+                    document.getElementById('answer-form').appendChild(answerInput);
+                }
+                pytanie_nr += 1;
+                console.log(pytanie_nr);
+            }
+        };
+        xhr2.open('GET', `script-typ.php?pytanie_nr=${pytanie_nr}`, true);
+        xhr2.send();
+
     }
 </script>
 </html>
