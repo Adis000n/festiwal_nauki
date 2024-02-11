@@ -72,7 +72,6 @@ if (!$con) {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 const response = xhr.responseText;
                 document.getElementById('pytanie-tresc').innerHTML = response;
-                console.log(pytanie_nr);
             }
         };
         xhr.open('GET', `script-tresc.php?pytanie_nr=${pytanie_nr}`, true);
@@ -92,38 +91,72 @@ if (!$con) {
                     `;
                     document.getElementById('answer-form').appendChild(inputDiv);
                     const submitButton = document.createElement('button');
-                    submitButton.type = 'submit';
+                    submitButton.type = 'button';
                     submitButton.classList.add('btn', 'btn-warning', 'btn-lg');
                     submitButton.textContent = 'Zatwierdź';
+                    submitButton.addEventListener('click', function(event) {
+                        event.preventDefault(); // prevent the default form submission behavior
+                        let answerValue;
+                        const inputField = document.querySelector('input[name="odpowiedz"]');
+                        if (inputField) {
+                            answerValue = inputField.value;
+                        } else {
+                            // Handle the absence of an input field (open-ended question)
+                            answerValue = "Open-ended answer";
+                        }
+                        console.log("Submitted answer:", answerValue);
+                        document.getElementById('pytanie').setAttribute('hidden', true);
+                    });
                     document.getElementById('answer-form').appendChild(submitButton);
-                } else if (response2 === 'closed') {
-                    const options = ['A', 'B', 'C', 'D'];
-                    for (let option of options) {
-                        const radioDiv = document.createElement('div');
-                        radioDiv.classList.add('form-check');
-                        radioDiv.innerHTML = `
-                            <input class="form-check-input" type="radio" name="answer" id="answer-${option.toLowerCase()}" value="${option.toLowerCase()}">
-                            <label class="form-check-label" for="answer-${option.toLowerCase()}">
-                                ${option}
-                            </label>
-                        `;
-                        document.getElementById('answer-form').appendChild(radioDiv);
+                    } else if (response2 === 'closed') {
+                        const options = ['A', 'B', 'C', 'D'];
+                        for (let option of options) {
+                            const button = document.createElement('button');
+                            button.type = 'button';
+                            button.classList.add('btn', 'btn-primary', 'btn-lg', 'option-button');
+                            button.textContent = option;
+                            button.id = `option-${option.toLowerCase()}`; // Unique identifier for each option
+                            button.addEventListener('click', function() {
+                                // Get the selected option
+                                const selectedOption = option.toLowerCase();
+                                console.log("Selected option:", selectedOption);
+                                
+                                // Hide the question div
+                                document.getElementById('pytanie').setAttribute('hidden', true);
+                            });
+                            document.getElementById('answer-form').appendChild(button);
+                        }
                     }
-                } else if (response2 === 'tf') {
-                    const trueFalseButtonsDiv = document.createElement('div');
-                    trueFalseButtonsDiv.classList.add('true-false-buttons');
-                    trueFalseButtonsDiv.innerHTML = `
-                        <button type="button" class="btn btn-success btn-lg true-button" data-value="true">Prawda</button>
-                        <button type="button" class="btn btn-danger btn-lg false-button" data-value="false">Fałsz</button>
-                    `;
-                    document.getElementById('answer-form').appendChild(trueFalseButtonsDiv);
-                    const answerInput = document.createElement('input');
-                    answerInput.type = 'hidden';
-                    answerInput.id = 'answer-input';
-                    answerInput.name = 'answer';
-                    answerInput.value = '';
-                    document.getElementById('answer-form').appendChild(answerInput);
-                }
+                    else if (response2 === 'tf') {
+                        const trueFalseButtonsDiv = document.createElement('div');
+                        trueFalseButtonsDiv.classList.add('true-false-buttons');
+                        trueFalseButtonsDiv.innerHTML = `
+                            <button type="button" class="btn btn-success btn-lg true-button" data-value="true">Prawda</button>
+                            <button type="button" class="btn btn-danger btn-lg false-button" data-value="false">Fałsz</button>
+                        `;
+                        document.getElementById('answer-form').appendChild(trueFalseButtonsDiv);
+                        const answerInput = document.createElement('input');
+                        answerInput.type = 'hidden';
+                        answerInput.id = 'answer-input';
+                        answerInput.name = 'answer';
+                        answerInput.value = '';
+                        document.getElementById('answer-form').appendChild(answerInput);
+                        
+                        const trueButton = document.querySelector('.true-button');
+                        const falseButton = document.querySelector('.false-button');
+
+                        trueButton.addEventListener('click', function() {
+                            document.getElementById('answer-input').value = 'true';
+                            console.log("Submitted answer: true");
+                            document.getElementById('pytanie').setAttribute('hidden', true);
+                        });
+
+                        falseButton.addEventListener('click', function() {
+                            document.getElementById('answer-input').value = 'false';
+                            console.log("Submitted answer: false");
+                            document.getElementById('pytanie').setAttribute('hidden', true);
+                        });
+                    }
                 pytanie_nr += 1;
                 console.log(pytanie_nr);
             }
