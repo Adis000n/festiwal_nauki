@@ -8,6 +8,7 @@ if (!$con) {
 <html lang="pl">
 <script>
     pytanie_nr = 1;
+    wynik = 0;
     console.log(pytanie_nr);
 </script>
 <head>
@@ -105,6 +106,19 @@ if (!$con) {
                             answerValue = "Open-ended answer";
                         }
                         console.log("Submitted answer:", answerValue);
+                        const xhr3 = new XMLHttpRequest();
+                        xhr3.onreadystatechange = function () {
+                            if (xhr3.readyState === 4 && xhr3.status === 200) {
+                                const response = xhr3.responseText;
+                                console.log("Response:", response);
+                                if (response === answerValue.toUpperCase()) {
+                                    wynik += 1;
+                                }
+                                console.log("Aktualny wynik to:", wynik);
+                            }
+                        };
+                        xhr3.open('GET', `script-odp1.php?pytanie_nr=${pytanie_nr}`, true);
+                        xhr3.send();
                         document.getElementById('pytanie').setAttribute('hidden', true);
                     });
                     document.getElementById('answer-form').appendChild(submitButton);
@@ -120,7 +134,6 @@ if (!$con) {
                                 // Get the selected option
                                 const selectedOption = option.toLowerCase();
                                 console.log("Selected option:", selectedOption);
-                                
                                 // Hide the question div
                                 document.getElementById('pytanie').setAttribute('hidden', true);
                             });

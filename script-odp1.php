@@ -17,10 +17,10 @@ if(isset($_GET['pytanie_nr'])) {
     // Check if the query was successful
     if ($result && mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
-        $pytanie_typ = $row['media_typ'];
-        echo $pytanie_typ; // Output the question content
+        $odpowiedz = $row['odpowiedz1'];
+        echo $odpowiedz; // Output the question content
     } else {
-        echo "nie znaleźono pytania o id: $pytanie_nr";
+        echo "NIe znaleźono odpowiedzi";
     }
 } else {
     echo "Error: pytanie_nr nie jest ustawiony";

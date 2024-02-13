@@ -20,10 +20,10 @@ if(isset($_GET['pytanie_nr'])) {
         $pytanie_tresc = $row['pytanie_tresc'];
         echo $pytanie_tresc; // Output the question content
     } else {
-        echo "No question found with ID: $pytanie_nr";
+        echo "nie znaleźono pytania o id: $pytanie_nr";
     }
 } else {
-    echo "Error: pytanie_nr parameter is not set";
+    echo "Error: pytanie_nr nie jest ustawiony";
 }
 
 // Close the connection
