@@ -40,8 +40,8 @@ if (!$con) {
         <h2>Pytanie:</h2>
         <div id="pytanie-tresc">
         </div>
-        <form id="answer-form" method="post">
-        </form>
+        <div id="answer-form" disabled>
+    </div>
     </div>
     <div id="plansza">
 
@@ -111,7 +111,7 @@ if (!$con) {
                             if (xhr3.readyState === 4 && xhr3.status === 200) {
                                 const response = xhr3.responseText;
                                 console.log("Response:", response);
-                                if (response === answerValue.toUpperCase()) {
+                                if (response.toUpperCase() === answerValue.toUpperCase()) {
                                     wynik += 1;
                                 }
                                 console.log("Aktualny wynik to:", wynik);
@@ -120,25 +120,50 @@ if (!$con) {
                         xhr3.open('GET', `script-odp1.php?pytanie_nr=${pytanie_nr}`, true);
                         xhr3.send();
                         document.getElementById('pytanie').setAttribute('hidden', true);
+                        pytanie_nr += 1;
+                        console.log(pytanie_nr);
                     });
                     document.getElementById('answer-form').appendChild(submitButton);
                     } else if (response2 === 'closed') {
-                        const options = ['A', 'B', 'C', 'D'];
-                        for (let option of options) {
-                            const button = document.createElement('button');
-                            button.type = 'button';
-                            button.classList.add('btn', 'btn-primary', 'btn-lg', 'option-button');
-                            button.textContent = option;
-                            button.id = `option-${option.toLowerCase()}`; // Unique identifier for each option
-                            button.addEventListener('click', function() {
-                                // Get the selected option
-                                const selectedOption = option.toLowerCase();
-                                console.log("Selected option:", selectedOption);
-                                // Hide the question div
-                                document.getElementById('pytanie').setAttribute('hidden', true);
-                            });
-                            document.getElementById('answer-form').appendChild(button);
-                        }
+                        const xhr5 = new XMLHttpRequest();
+                        let options = []; // Define options array outside the callback function
+                        xhr5.onreadystatechange = function () {
+                            if (xhr5.readyState === 4 && xhr5.status === 200) {
+                                const response = JSON.parse(xhr5.responseText);
+                                options = [response[0], response[1], response[2], response[3]]; // Update options array
+                                for (let option of options) {
+                                    const button = document.createElement('button');
+                                    button.type = 'button';
+                                    button.classList.add('btn', 'btn-primary', 'btn-lg', 'option-button');
+                                    button.textContent = option;
+                                    button.id = `option-${option.toLowerCase()}`; // Unique identifier for each option
+                                    button.addEventListener('click', function() {
+                                        // Get the selected option
+                                        const selectedOption = option.toLowerCase();
+                                        console.log(selectedOption);
+                                        const xhr6 = new XMLHttpRequest();
+                                        xhr6.onreadystatechange = function () {
+                                            if (xhr6.readyState === 4 && xhr6.status === 200) {
+                                                const response = xhr6.responseText;
+                                                console.log("Response:", response);
+                                                if (response.toLowerCase() == selectedOption.toLowerCase() ) {
+                                                    wynik += 1;
+                                                }
+                                                console.log("Aktualny wynik to:", wynik);
+                                            }
+                                        };
+                                        xhr6.open('GET', `script-poprawna.php?pytanie_nr=${pytanie_nr}`, true);
+                                        xhr6.send();
+                                        document.getElementById('pytanie').setAttribute('hidden', true);
+                                        pytanie_nr += 1;
+                                        console.log(pytanie_nr);
+                                    });
+                                    document.getElementById('answer-form').appendChild(button);
+                                }
+                            }
+                        };
+                        xhr5.open('GET', `script-odpowiedzi.php?pytanie_nr=${pytanie_nr}`, true);
+                        xhr5.send();
                     }
                     else if (response2 === 'tf') {
                         const trueFalseButtonsDiv = document.createElement('div');
@@ -160,23 +185,48 @@ if (!$con) {
 
                         trueButton.addEventListener('click', function() {
                             document.getElementById('answer-input').value = 'true';
-                            console.log("Submitted answer: true");
+                        const xhr4 = new XMLHttpRequest();
+                        xhr4.onreadystatechange = function () {
+                            if (xhr4.readyState === 4 && xhr4.status === 200) {
+                                const response = xhr4.responseText;
+                                console.log("Response:", response);
+                                if (response.toLowerCase() == "true") {
+                                    wynik += 1;
+                                }
+                                console.log("Aktualny wynik to:", wynik);
+                            }
+                        };
+                        xhr4.open('GET', `script-odp1.php?pytanie_nr=${pytanie_nr}`, true);
+                        xhr4.send();
                             document.getElementById('pytanie').setAttribute('hidden', true);
+                            pytanie_nr += 1;
+                            console.log(pytanie_nr);
                         });
 
                         falseButton.addEventListener('click', function() {
-                            document.getElementById('answer-input').value = 'false';
-                            console.log("Submitted answer: false");
+                            document.getElementById('answer-input').value = 'false';  
+                            const xhr4 = new XMLHttpRequest(); 
+                            xhr4.onreadystatechange = function () {
+                            if (xhr4.readyState === 4 && xhr4.status === 200) {
+                                const response = xhr4.responseText; 
+                                console.log("Response:", response);
+                                if (response.toLowerCase() == "false") {
+                                    wynik += 1;
+                                }
+                                console.log("Aktualny wynik to:", wynik);
+                            }
+                        };
+                        xhr4.open('GET', `script-odp1.php?pytanie_nr=${pytanie_nr}`, true);
+                        xhr4.send();
                             document.getElementById('pytanie').setAttribute('hidden', true);
+                            pytanie_nr += 1;
+                            console.log(pytanie_nr);
                         });
                     }
-                pytanie_nr += 1;
-                console.log(pytanie_nr);
             }
         };
         xhr2.open('GET', `script-typ.php?pytanie_nr=${pytanie_nr}`, true);
         xhr2.send();
-
     }
 </script>
 </html>
