@@ -17,6 +17,7 @@ if (!$con) {
     <title>Festiwal nauki</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -27,12 +28,22 @@ if (!$con) {
             <label for="floatingInput"><strong>Wpisz nazwę klasy:</strong> (np. 2TP)</label>
         </div>
         <button type="submit" class="btn btn-warning btn-lg" >Rozpocznij</button>
+        
     </form>
-    <?php
+   <script>
+    function wynik20(){
+        wynik=20;
+    }
+   </script>
+   
+   
+   <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $klasa = $_POST["klasa"]; 
         $start = date("H:i:s");
         echo "<script>document.getElementById('start').setAttribute('hidden', true);</script>";
+    
+
     }
     ?>
     </div>
@@ -46,7 +57,9 @@ if (!$con) {
     <div id="plansza">
 
     </div>
-    <button type="submit" class="btn btn-dark btn-lg" onclick="showQuestion()">Wyświetl pytanie</button>
+    <button id="questionbut" type="submit" class="btn btn-dark btn-lg" onclick="showQuestion()">Wyświetl pytanie</button>
+    <button onclick="wynik20()">CHEAT BUTTON (ustawianie punktów na 20)</button>
+    <button onclick="koniec(klasa, start)">MOJ PRZYCIK PRÓBA INSETU(wywołanie f.do wysyłania)  </button>
 </body>
 <script>
     
@@ -113,6 +126,7 @@ if (!$con) {
                                 console.log("Response:", response);
                                 if (response.toUpperCase() === answerValue.toUpperCase()) {
                                     wynik += 1;
+                                    koniec(klasa, start)
                                 }
                                 console.log("Aktualny wynik to:", wynik);
                             }
@@ -122,6 +136,7 @@ if (!$con) {
                         document.getElementById('pytanie').setAttribute('hidden', true);
                         pytanie_nr += 1;
                         console.log(pytanie_nr);
+                        
                     });
                     document.getElementById('answer-form').appendChild(submitButton);
                     } else if (response2 === 'closed') {
@@ -148,6 +163,7 @@ if (!$con) {
                                                 console.log("Response:", response);
                                                 if (response.toLowerCase() == selectedOption.toLowerCase() ) {
                                                     wynik += 1;
+                                                    koniec(klasa, start)
                                                 }
                                                 console.log("Aktualny wynik to:", wynik);
                                             }
@@ -157,6 +173,7 @@ if (!$con) {
                                         document.getElementById('pytanie').setAttribute('hidden', true);
                                         pytanie_nr += 1;
                                         console.log(pytanie_nr);
+                                        
                                     });
                                     document.getElementById('answer-form').appendChild(button);
                                 }
@@ -164,6 +181,7 @@ if (!$con) {
                         };
                         xhr5.open('GET', `script-odpowiedzi.php?pytanie_nr=${pytanie_nr}`, true);
                         xhr5.send();
+                        koniec(klasa, start)
                     }
                     else if (response2 === 'tf') {
                         const trueFalseButtonsDiv = document.createElement('div');
@@ -192,6 +210,7 @@ if (!$con) {
                                 console.log("Response:", response);
                                 if (response.toLowerCase() == "true") {
                                     wynik += 1;
+                                    koniec(klasa, start)
                                 }
                                 console.log("Aktualny wynik to:", wynik);
                             }
@@ -201,6 +220,7 @@ if (!$con) {
                             document.getElementById('pytanie').setAttribute('hidden', true);
                             pytanie_nr += 1;
                             console.log(pytanie_nr);
+                            
                         });
 
                         falseButton.addEventListener('click', function() {
@@ -212,6 +232,7 @@ if (!$con) {
                                 console.log("Response:", response);
                                 if (response.toLowerCase() == "false") {
                                     wynik += 1;
+                                    koniec(klasa, start)
                                 }
                                 console.log("Aktualny wynik to:", wynik);
                             }
@@ -221,6 +242,7 @@ if (!$con) {
                             document.getElementById('pytanie').setAttribute('hidden', true);
                             pytanie_nr += 1;
                             console.log(pytanie_nr);
+                            
                         });
                     }
             }
@@ -228,5 +250,75 @@ if (!$con) {
         xhr2.open('GET', `script-typ.php?pytanie_nr=${pytanie_nr}`, true);
         xhr2.send();
     }
+</script>
+
+
+<?php
+// Przykładowe wartości dla zmiennych klasa i start
+$klasa = $_POST["klasa"];
+
+
+// Przekazanie wartości zmiennych PHP do JavaScript
+if(isset($klasa)){
+echo "<script>";
+echo "var klasa = '" . $klasa . "';";
+echo "var start = '" . $start . "';";
+echo "</script>";}
+?>
+<script>
+// Funkcja do wysyłania danych
+function koniec(klasa, start) {
+    if(wynik==20){
+
+          document.getElementById("questionbut").disabled=true;
+        const now=new Date();
+        const czas_kon=now.getHours()+":"+now.getMinutes()+":"+now.getSeconds();
+        console.log(czas_kon);
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "skrypt-wujek-insert-klasa.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log(xhr.responseText);
+        }
+    };
+    var data = "klasa=" + encodeURIComponent(klasa) + "&start=" + encodeURIComponent(start)+ "&koniec="+encodeURIComponent(czas_kon);
+    xhr.send(data);
+    const duration = 15 * 1000,
+  animationEnd = Date.now() + duration,
+  defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+function randomInRange(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+const interval = setInterval(function() {
+  const timeLeft = animationEnd - Date.now();
+
+  if (timeLeft <= 0) {
+    return clearInterval(interval);
+  }
+
+  const particleCount = 50 * (timeLeft / duration);
+
+  // since particles fall down, start a bit higher than random
+  confetti(
+    Object.assign({}, defaults, {
+      particleCount,
+      origin: { x: randomInRange(0.1, 0.5), y: Math.random() - 0.2 },
+    })
+  );
+  confetti(
+    Object.assign({}, defaults, {
+      particleCount,
+      origin: { x: randomInRange(0.5, 0.9), y: Math.random() - 0.2 },
+    })
+  );
+}, 250);
+
+}}
+
+
+
 </script>
 </html>
