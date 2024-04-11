@@ -160,15 +160,27 @@ if (!$con) {
                                     wynik += 1;
                                     Swal.fire({
                                         icon: "success",
-                                        title: "<p style='font-size: 9vh;'>Dobra robota!</p><br><p style='font-size: 6vh; font-weight:100;'>Ta odpowiedź jest poprawna</p>", 
+                                        title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;'>Dobra robota!</p><br><p style='font-size: 6vh;'>Ta odpowiedź jest poprawna</p>", 
                                         iconColor: "#FFD500",
                                         background: "#00509D",
                                         color: "#FDC500",
                                         width: "50%",
                                         showConfirmButton: false,
-                                        timer: 2000
+                                        timer: 3000
                                         });
                                     koniec(klasa, start)
+                                }
+                                else{
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;padding-bottom:10px;'>Niestety!</p><br><p style='font-size: 6vh;'>Ta odpowiedź nie jest poprawna</p>", 
+                                        iconColor: "#FFD500",
+                                        background: "#00509D",
+                                        color: "#FDC500",
+                                        width: "50%",
+                                        showConfirmButton: false,
+                                        timer: 3000
+                                        });
                                 }
                                 console.log("Aktualny wynik to:", wynik);
                             }
@@ -208,15 +220,27 @@ if (!$con) {
                                                     wynik += 1;
                                                     Swal.fire({
                                                         icon: "success",
-                                                        title: "<p style='font-size: 9vh;'>Dobra robota!</p><br><p style='font-size: 6vh; font-weight:100;'>Ta odpowiedź jest poprawna</p>",
+                                                        title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;'>Dobra robota!</p><br><p style='font-size: 6vh;'>Ta odpowiedź jest poprawna</p>",
                                                         iconColor: "#FFD500",
                                                         background: "#00509D",
                                                         color: "#FDC500",
                                                         width: "50%",
                                                         showConfirmButton: false,
-                                                        timer: 2000
+                                                        timer: 3000
                                                         });
                                                     koniec(klasa, start)
+                                                }
+                                                else{
+                                                    Swal.fire({
+                                                        icon: "error",
+                                                        title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;padding-bottom:10px;'>Niestety!</p><br><p style='font-size: 6vh;'>Ta odpowiedź nie jest poprawna</p>", 
+                                                        iconColor: "#FFD500",
+                                                        background: "#00509D",
+                                                        color: "#FDC500",
+                                                        width: "50%",
+                                                        showConfirmButton: false,
+                                                        timer: 3000
+                                                        });
                                                 }
                                                 console.log("Aktualny wynik to:", wynik);
                                             }
@@ -269,15 +293,27 @@ if (!$con) {
                                     wynik += 1;
                                     Swal.fire({
                                         icon: "success",
-                                        title: "<p style='font-size: 9vh;'>Dobra robota!</p><br><p style='font-size: 5vh;'>Ta odpowiedź jest poprawna</p>", 
+                                        title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;'>Dobra robota!</p><br><p style='font-size: 5vh;'>Ta odpowiedź jest poprawna</p>", 
                                         iconColor: "#FFD500",
                                         background: "#00509D",
                                         color: "#FDC500",
                                         width: "50%",
                                         showConfirmButton: false,
-                                        timer: 2000
+                                        timer: 3000
                                         });
                                     koniec(klasa, start)
+                                }
+                                else{
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;padding-bottom:10px;'>Niestety!</p><br><p style='font-size: 6vh;'>Ta odpowiedź nie jest poprawna</p>", 
+                                        iconColor: "#FFD500",
+                                        background: "#00509D",
+                                        color: "#FDC500",
+                                        width: "50%",
+                                        showConfirmButton: false,
+                                        timer: 3000
+                                        });
                                 }
                                 console.log("Aktualny wynik to:", wynik);
                             }
@@ -302,15 +338,27 @@ if (!$con) {
                                     wynik += 1;
                                     Swal.fire({
                                         icon: "success",
-                                        title: "<p style='font-size: 9vh;'>Dobra robota!</p><br><p style='font-size: 6vh; font-weight:100;'>Ta odpowiedź jest poprawna</p>",
+                                        title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;'>Dobra robota!</p><br><p style='font-size: 6vh;'>Ta odpowiedź jest poprawna</p>",
                                         iconColor: "#FFD500",
                                         background: "#00509D",
                                         color: "#FDC500",
                                         width: "50%",
                                         showConfirmButton: false,
-                                        timer: 2000
+                                        timer: 3000
                                         });
                                     koniec(klasa, start)
+                                }
+                                else{
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;padding-bottom:10px;'>Niestety!</p><br><p style='font-size: 6vh;'>Ta odpowiedź nie jest poprawna</p>", 
+                                        iconColor: "#FFD500",
+                                        background: "#00509D",
+                                        color: "#FDC500",
+                                        width: "50%",
+                                        showConfirmButton: false,
+                                        timer: 3000
+                                        });
                                 }
                                 console.log("Aktualny wynik to:", wynik);
                             }
