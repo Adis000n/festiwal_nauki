@@ -29,7 +29,7 @@
       }
 
       // Pobranie rekordów z bazy danych
-      $sql = 'SELECT nazwa,wynik FROM klasa ORDER BY wynik asc';
+      $sql = 'SELECT nazwa,punkty,wynik FROM klasa ORDER BY punkty desc';
       $result = mysqli_query($conn, $sql);
 
       // Wyświetlenie rekordów

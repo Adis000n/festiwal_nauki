@@ -51,6 +51,7 @@ if (!$con) {
 
     </div>
     <button id="questionbut" class="button-87" role="button" onclick="showQuestion()" hidden>Wyświetl pytanie</button>
+
     <script>
         const blob = document.getElementById("blob");
 
@@ -402,7 +403,7 @@ echo "</script>";}
 <script>
 // Funkcja do wysyłania danych
 function koniec(klasa, start) {
-    if(pytanie_nr==20){ //no trzeba dodać ile jest pól
+    if(pytanie_nr==49){ //no trzeba dodać ile jest pól
 
           document.getElementById("questionbut").disabled=true;
         const now=new Date();
@@ -416,10 +417,10 @@ function koniec(klasa, start) {
             console.log(xhr.responseText);
         }
     };
-    var data = "klasa=" + encodeURIComponent(klasa) + "&start=" + encodeURIComponent(start)+ "&koniec="+encodeURIComponent(czas_kon);
+    var data = "klasa=" + encodeURIComponent(klasa) + "&start=" + encodeURIComponent(start)+ "&koniec="+encodeURIComponent(czas_kon) +"&wynik="+ encodeURIComponent(wynik);
     xhr.send(data);
 
-
+console.log("działa ")
     const duration = 15 * 1000,
   animationEnd = Date.now() + duration,
   defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };

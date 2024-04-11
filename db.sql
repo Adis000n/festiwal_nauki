@@ -39,3 +39,4 @@ delimiter ;
 -- przykładowy insert 
 -- insert into klasa values(default,"3TP","12:12:12","10:10:10",null);
 -- select * from klasa;
+alter table klasa add column punkty tinyint;

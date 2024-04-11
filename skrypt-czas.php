@@ -18,11 +18,12 @@ $hostname = "localhost";
 $klasa=$_POST['klasa'];
 $start=$_POST['start'];
 $czas_kon=$_POST['koniec'];
+$wynik=$_POST['wynik'];
         
         
           // Insert the data into the database
         
-          $sql = "INSERT INTO klasa  VALUES (default,'$klasa','$czas_kon','$start',null)";
+          $sql = "INSERT INTO klasa  VALUES (default,'$klasa','$czas_kon','$start',null,$wynik)";
         
           if (mysqli_query($connection, $sql)) {
             echo "Rekord Dodany do bazy danych";
