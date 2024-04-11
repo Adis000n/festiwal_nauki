@@ -392,7 +392,7 @@ echo "</script>";}
 <script>
 // Funkcja do wysyłania danych
 function koniec(klasa, start) {
-    if(wynik==20){
+    if(pytanie_nr==20){ //no trzeba dodać ile jest pól
 
           document.getElementById("questionbut").disabled=true;
         const now=new Date();
@@ -408,6 +408,8 @@ function koniec(klasa, start) {
     };
     var data = "klasa=" + encodeURIComponent(klasa) + "&start=" + encodeURIComponent(start)+ "&koniec="+encodeURIComponent(czas_kon);
     xhr.send(data);
+
+
     const duration = 15 * 1000,
   animationEnd = Date.now() + duration,
   defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
