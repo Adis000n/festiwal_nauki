@@ -420,7 +420,7 @@ function koniec(klasa, start) {
     var data = "klasa=" + encodeURIComponent(klasa) + "&start=" + encodeURIComponent(start)+ "&koniec="+encodeURIComponent(czas_kon) +"&wynik="+ encodeURIComponent(wynik);
     xhr.send(data);
 
-console.log("działa ")
+
     const duration = 15 * 1000,
   animationEnd = Date.now() + duration,
   defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
