@@ -18,11 +18,15 @@ if (!$con) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="start" class="popUp" >
-    <form method="post">
+    <form method="post" onsubmit="disableUnloadAlert()">
         <div class="form-floating mb-3" id="klasa-id">
             <input type="text" class="form-control" id="floatingInput" placeholder="klasa" name="klasa">
             <label for="floatingInput"><strong>Wpisz nazwę klasy:</strong> (np. 2TP)</label>
@@ -44,9 +48,12 @@ if (!$con) {
     ?>
     </div>
     <div id="pytanie" class="popUp" hidden>
-        <h2>Pytanie:</h2>
-        <div id="pytanie-tresc">
+        <div id="cale-pyt">
+            <h1>Pytanie</h1>
+            <div id="pytanie-tresc">
+            </div>
         </div>
+        
         <div id="answer-form" disabled>
     </div>
     </div>
@@ -54,9 +61,28 @@ if (!$con) {
 
     </div>
     <button id="questionbut" type="submit" class="btn btn-dark btn-lg" onclick="showQuestion()">Wyświetl pytanie</button>
+    <script>
+        function disableUnloadAlert() {
+            window.removeEventListener('beforeunload', preventUnload);
+            window.removeEventListener('submit', disableUnloadAlert); // Remove the listener for form submission
+        }
+
+        function preventUnload(event) {
+            event.preventDefault();
+            event.returnValue = '';
+            const confirmationMessage = 'Czy na pewno chcesz zamknąć stronę?';
+            event.returnValue = confirmationMessage;
+            return confirmationMessage;
+        }
+
+        window.addEventListener('beforeunload', preventUnload);
+
+        // Add event listener to re-enable the unload alert after form submission
+        window.addEventListener('submit', disableUnloadAlert);
+    </script>
 </body>
 <script>
-    
+
     document.addEventListener("DOMContentLoaded", function() {
     // Get true/false buttons
     const trueButton = document.querySelector('.true-button');
@@ -74,6 +100,7 @@ if (!$con) {
     });
 });
     function showQuestion() {
+        document.getElementById('questionbut').setAttribute('hidden', true);
         document.getElementById('pytanie').removeAttribute('hidden');
         const xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
@@ -88,20 +115,25 @@ if (!$con) {
         xhr2.onreadystatechange = function () {
             if (xhr2.readyState === 4 && xhr2.status === 200) {
                 const response2 = xhr2.responseText;
-                document.getElementById('answer-form').innerHTML = response2;
+                document.getElementById('answer-form').innerHTML = "";
                 if (response2 === 'open') {
                     const inputDiv = document.createElement('div');
                     inputDiv.classList.add('form-floating', 'mb-3');
                     inputDiv.id = 'klasa-id';
+                    inputDiv.style.boxShadow = " 10px 10px 10px rgba(0, 0, 0, 0.4)";
                     inputDiv.innerHTML = `
-                        <input type="text" class="form-control" id="floatingInput" placeholder="odpowiedz" name="odpowiedz">
-                        <label for="floatingInput">Wpisz odpowiedź</label>
+                        <input type="text" class="form-control" id="floatingInput" placeholder="odpowiedz" name="odpowiedz" style="font-size: 3vh;height:100%; ">
+                        <label for="floatingInput" style="font-size: 2vh;height:100%;">Wpisz odpowiedź</label>
                     `;
                     document.getElementById('answer-form').appendChild(inputDiv);
                     const submitButton = document.createElement('button');
                     submitButton.type = 'button';
                     submitButton.classList.add('btn', 'btn-warning', 'btn-lg');
                     submitButton.textContent = 'Zatwierdź';
+                    submitButton.style.width = '100%'; // Set width to 100%
+                    submitButton.style.fontSize = '3.5vh'; // Adjust font size as needed
+                    submitButton.style.height = '7vh';
+                    submitButton.style.boxShadow = "inset 10px 10px 10px rgba(0, 0, 0, 0.3), inset -10px -10px 10px rgba(255, 255, 255, 0.3), 10px 10px 10px rgba(0, 0, 0, 0.4)";
                     submitButton.addEventListener('click', function(event) {
                         event.preventDefault(); // prevent the default form submission behavior
                         let answerValue;
@@ -120,7 +152,29 @@ if (!$con) {
                                 console.log("Response:", response);
                                 if (response.toUpperCase() === answerValue.toUpperCase()) {
                                     wynik += 1;
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;'>Dobra robota!</p><br><p style='font-size: 6vh;'>Ta odpowiedź jest poprawna</p>", 
+                                        iconColor: "#FFD500",
+                                        background: "#00509D",
+                                        color: "#FDC500",
+                                        width: "50%",
+                                        showConfirmButton: false,
+                                        timer: 3000
+                                        });
                                     koniec(klasa, start)
+                                }
+                                else{
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;padding-bottom:10px;'>Niestety!</p><br><p style='font-size: 6vh;'>Ta odpowiedź nie jest poprawna</p>", 
+                                        iconColor: "#FFD500",
+                                        background: "#00509D",
+                                        color: "#FDC500",
+                                        width: "50%",
+                                        showConfirmButton: false,
+                                        timer: 3000
+                                        });
                                 }
                                 console.log("Aktualny wynik to:", wynik);
                             }
@@ -128,6 +182,7 @@ if (!$con) {
                         xhr3.open('GET', `script-odp1.php?pytanie_nr=${pytanie_nr}`, true);
                         xhr3.send();
                         document.getElementById('pytanie').setAttribute('hidden', true);
+                        document.getElementById('questionbut').removeAttribute('hidden');
                         pytanie_nr += 1;
                         console.log(pytanie_nr);
                         
@@ -143,7 +198,7 @@ if (!$con) {
                                 for (let option of options) {
                                     const button = document.createElement('button');
                                     button.type = 'button';
-                                    button.classList.add('btn', 'btn-primary', 'btn-lg', 'option-button');
+                                    button.classList.add('btn', 'btn-warning', 'btn-lg', 'option-button');
                                     button.textContent = option;
                                     button.id = `option-${option.toLowerCase()}`; // Unique identifier for each option
                                     button.addEventListener('click', function() {
@@ -157,7 +212,29 @@ if (!$con) {
                                                 console.log("Response:", response);
                                                 if (response.toLowerCase() == selectedOption.toLowerCase() ) {
                                                     wynik += 1;
+                                                    Swal.fire({
+                                                        icon: "success",
+                                                        title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;'>Dobra robota!</p><br><p style='font-size: 6vh;'>Ta odpowiedź jest poprawna</p>",
+                                                        iconColor: "#FFD500",
+                                                        background: "#00509D",
+                                                        color: "#FDC500",
+                                                        width: "50%",
+                                                        showConfirmButton: false,
+                                                        timer: 3000
+                                                        });
                                                     koniec(klasa, start)
+                                                }
+                                                else{
+                                                    Swal.fire({
+                                                        icon: "error",
+                                                        title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;padding-bottom:10px;'>Niestety!</p><br><p style='font-size: 6vh;'>Ta odpowiedź nie jest poprawna</p>", 
+                                                        iconColor: "#FFD500",
+                                                        background: "#00509D",
+                                                        color: "#FDC500",
+                                                        width: "50%",
+                                                        showConfirmButton: false,
+                                                        timer: 3000
+                                                        });
                                                 }
                                                 console.log("Aktualny wynik to:", wynik);
                                             }
@@ -165,10 +242,14 @@ if (!$con) {
                                         xhr6.open('GET', `script-poprawna.php?pytanie_nr=${pytanie_nr}`, true);
                                         xhr6.send();
                                         document.getElementById('pytanie').setAttribute('hidden', true);
+                                        document.getElementById('questionbut').removeAttribute('hidden');
                                         pytanie_nr += 1;
                                         console.log(pytanie_nr);
                                         
                                     });
+                                    document.getElementById('answer-form').style.display = 'grid';
+                                    document.getElementById('answer-form').style.gridTemplateColumns = 'repeat(2, 1fr)';
+                                    document.getElementById('answer-form').style.gap = '10px';
                                     document.getElementById('answer-form').appendChild(button);
                                 }
                             }
@@ -204,7 +285,29 @@ if (!$con) {
                                 console.log("Response:", response);
                                 if (response.toLowerCase() == "true") {
                                     wynik += 1;
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;'>Dobra robota!</p><br><p style='font-size: 5vh;'>Ta odpowiedź jest poprawna</p>", 
+                                        iconColor: "#FFD500",
+                                        background: "#00509D",
+                                        color: "#FDC500",
+                                        width: "50%",
+                                        showConfirmButton: false,
+                                        timer: 3000
+                                        });
                                     koniec(klasa, start)
+                                }
+                                else{
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;padding-bottom:10px;'>Niestety!</p><br><p style='font-size: 6vh;'>Ta odpowiedź nie jest poprawna</p>", 
+                                        iconColor: "#FFD500",
+                                        background: "#00509D",
+                                        color: "#FDC500",
+                                        width: "50%",
+                                        showConfirmButton: false,
+                                        timer: 3000
+                                        });
                                 }
                                 console.log("Aktualny wynik to:", wynik);
                             }
@@ -212,6 +315,7 @@ if (!$con) {
                         xhr4.open('GET', `script-odp1.php?pytanie_nr=${pytanie_nr}`, true);
                         xhr4.send();
                             document.getElementById('pytanie').setAttribute('hidden', true);
+                            document.getElementById('questionbut').removeAttribute('hidden');
                             pytanie_nr += 1;
                             console.log(pytanie_nr);
                             
@@ -226,7 +330,29 @@ if (!$con) {
                                 console.log("Response:", response);
                                 if (response.toLowerCase() == "false") {
                                     wynik += 1;
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;'>Dobra robota!</p><br><p style='font-size: 6vh;'>Ta odpowiedź jest poprawna</p>",
+                                        iconColor: "#FFD500",
+                                        background: "#00509D",
+                                        color: "#FDC500",
+                                        width: "50%",
+                                        showConfirmButton: false,
+                                        timer: 3000
+                                        });
                                     koniec(klasa, start)
+                                }
+                                else{
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;padding-bottom:10px;'>Niestety!</p><br><p style='font-size: 6vh;'>Ta odpowiedź nie jest poprawna</p>", 
+                                        iconColor: "#FFD500",
+                                        background: "#00509D",
+                                        color: "#FDC500",
+                                        width: "50%",
+                                        showConfirmButton: false,
+                                        timer: 3000
+                                        });
                                 }
                                 console.log("Aktualny wynik to:", wynik);
                             }
@@ -234,10 +360,14 @@ if (!$con) {
                         xhr4.open('GET', `script-odp1.php?pytanie_nr=${pytanie_nr}`, true);
                         xhr4.send();
                             document.getElementById('pytanie').setAttribute('hidden', true);
+                            document.getElementById('questionbut').removeAttribute('hidden');
                             pytanie_nr += 1;
                             console.log(pytanie_nr);
                             
                         });
+                        document.getElementById('answer-form').style.display = 'block';
+                        document.getElementById('answer-form').style.gridTemplateColumns = 'none'; // Reset to default
+                        document.getElementById('answer-form').style.gap = '0';
                     }
             }
         };
