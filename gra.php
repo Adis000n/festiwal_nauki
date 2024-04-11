@@ -30,11 +30,7 @@ if (!$con) {
         <button type="submit" class="btn btn-warning btn-lg" >Rozpocznij</button>
         
     </form>
-   <script>
-    function wynik20(){
-        wynik=20;
-    }
-   </script>
+
    
    
    <?php
@@ -58,8 +54,6 @@ if (!$con) {
 
     </div>
     <button id="questionbut" type="submit" class="btn btn-dark btn-lg" onclick="showQuestion()">Wyświetl pytanie</button>
-    <button onclick="wynik20()">CHEAT BUTTON (ustawianie punktów na 20)</button>
-    <button onclick="koniec(klasa, start)">MOJ PRZYCIK PRÓBA INSETU(wywołanie f.do wysyłania)  </button>
 </body>
 <script>
     
@@ -275,7 +269,7 @@ function koniec(klasa, start) {
         const czas_kon=now.getHours()+":"+now.getMinutes()+":"+now.getSeconds();
         console.log(czas_kon);
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "skrypt-wujek-insert-klasa.php", true);
+    xhr.open("POST", "skrypt-czas.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
