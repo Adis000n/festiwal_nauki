@@ -1,0 +1,56 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 41, 107, 1);
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    
+}
+h1 {
+    color: #ffffff;
+    font-size: 8vh;
+    border-bottom: 4px solid #FDC500;
+    padding: 10px;
+}
+.record {
+
+    padding: 2.0vh;
+    font-size: 3vh;
+    margin-bottom: 1vh;
+    border-radius: 2vh;
+    margin-top: 0.5vh;
+    background-color: rgba(253, 197, 0,1);
+    align-items: center;
+    
+    justify-content: flex-start;
+    color: rgba(0, 0, 0, 1);
+
+  }
+.licznik{
+  
+    /* background-color: rgba(0, 63, 136, 0.05); */
+  color:white;
+  font-size: 8vh;
+  font-family: "Dosis", sans-serif;
+  align-items: center;
+  justify-content: center;
+  font-style: normal;
+
+}
+/* PANI FIBINGER JEST MILFEM */
+.record p {
+    margin: 0.1em;;
+   }
+header{
+    width: 100vh;
+
+    align-items: justify;
+    justify-content: normal;
+    text-align: center;
+}
+.all{
+    flex-direction: row;
+    /* background-color: ; */
+}
