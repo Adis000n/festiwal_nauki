@@ -25,27 +25,17 @@ if (!$con) {
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div id="blob"></div>
+<div id="blur"></div>
     <div id="start" class="popUp" >
     <form method="post" onsubmit="disableUnloadAlert()">
         <div class="form-floating mb-3" id="klasa-id">
-            <input type="text" class="form-control" id="floatingInput" placeholder="klasa" name="klasa">
-            <label for="floatingInput"><strong>Wpisz nazwę klasy:</strong> (np. 2TP)</label>
+            <input type="text" class="form-control" id="floatingInput" placeholder="klasa" name="klasa" style="font-size: 3vh;height:100%; ">
+            <label for="floatingInput" style="font-size: 2vh;height:100%;"><strong>Wpisz nazwę klasy:</strong> (np. 2TP)</label>
         </div>
-        <button type="submit" class="btn btn-warning btn-lg" >Rozpocznij</button>
+        <button type="submit" class="btn btn-warning btn-lg" id="btn-start" >Rozpocznij</button>
         
     </form>
-
-   
-   
-   <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $klasa = $_POST["klasa"]; 
-        $start = date("H:i:s");
-        echo "<script>document.getElementById('start').setAttribute('hidden', true);</script>";
-    
-
-    }
-    ?>
     </div>
     <div id="pytanie" class="popUp" hidden>
         <div id="cale-pyt">
@@ -60,8 +50,19 @@ if (!$con) {
     <div id="plansza">
 
     </div>
-    <button id="questionbut" type="submit" class="btn btn-dark btn-lg" onclick="showQuestion()">Wyświetl pytanie</button>
+    <button id="questionbut" class="button-87" role="button" onclick="showQuestion()" hidden>Wyświetl pytanie</button>
     <script>
+        const blob = document.getElementById("blob");
+
+        window.onpointermove = event => { 
+        const { clientX, clientY } = event;
+        
+        blob.animate({
+            left: `${clientX}px`,
+            top: `${clientY}px`
+        }, { duration: 3000, fill: "forwards" });
+        }
+
         function disableUnloadAlert() {
             window.removeEventListener('beforeunload', preventUnload);
             window.removeEventListener('submit', disableUnloadAlert); // Remove the listener for form submission
@@ -80,6 +81,15 @@ if (!$con) {
         // Add event listener to re-enable the unload alert after form submission
         window.addEventListener('submit', disableUnloadAlert);
     </script>
+    <?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $klasa = $_POST["klasa"]; 
+    $start = date("H:i:s");
+    echo "<script>document.getElementById('questionbut').removeAttribute('hidden');</script>";
+    echo "<script>document.getElementById('start').setAttribute('hidden', true);</script>";
+}
+
+    ?>
 </body>
 <script>
 
