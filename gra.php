@@ -27,16 +27,29 @@ if (!$con) {
 <body>
 <div id="blob"></div>
 <div id="blur"></div>
-    <div id="start" class="popUp" >
-    <form method="post" onsubmit="disableUnloadAlert()">
-        <div class="form-floating mb-3" id="klasa-id">
-            <input type="text" class="form-control" id="floatingInput" placeholder="klasa" name="klasa" style="font-size: 3vh;height:100%; ">
-            <label for="floatingInput" style="font-size: 2vh;height:100%;"><strong>Wpisz nazwę klasy:</strong> (np. 2TP)</label>
-        </div>
-        <button type="submit" class="btn btn-warning btn-lg" id="btn-start" >Rozpocznij</button>
-        
-    </form>
+<div id="overlay"></div>
+<div id="start" class="popUp">
+    <div id="wprowadzenie">
+        <div id="tresc2">Aby rozpocząć wpisz nazwę klucz potwierdzający oraz nazwę klasy</div>
     </div>
+    <form method="post" onsubmit="disableUnloadAlert()">
+        <div class="row g-2">
+            <div class="col-md">
+                <div class="form-floating mb-3" id="klucz">
+                    <input type="password" class="form-control" id="floatingInputGrid1" placeholder="1234" name="klucz" style="font-size: 3vh;height:100%;" maxlength="4" minlength="4">
+                    <label for="floatingInputGrid" style="font-size: 2vh;height:100%;"><strong>Wpisz klucz zabezpiczejący, załączony w wiadomości</strong> (np. 1234)</label>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-floating mb-3" id="klasa-id">
+                    <input type="text" class="form-control" id="floatingInputGrid2" placeholder="klasa" name="klasa" style="font-size: 3vh;height:100%;">
+                    <label for="floatingInputGrid" style="font-size: 2vh;height:100%;"><strong>Wpisz nazwę klasy:</strong> (np. 2TP)</label>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-warning btn-lg" id="btn-start">Rozpocznij</button>
+    </form>
+</div>
     <div id="pytanie" class="popUp" hidden>
         <div id="cale-pyt">
             <h1>Pytanie</h1>
@@ -84,10 +97,29 @@ if (!$con) {
     </script>
     <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $klasa = $_POST["klasa"]; 
+    $klucz = $_POST["klucz"];
+    $klasa = $_POST["klasa"];
     $start = date("H:i:s");
-    echo "<script>document.getElementById('questionbut').removeAttribute('hidden');</script>";
-    echo "<script>document.getElementById('start').setAttribute('hidden', true);</script>";
+    if($klucz == "1234"){
+        echo "<script>document.getElementById('questionbut').removeAttribute('hidden');</script>";
+        echo "<script>document.getElementById('start').setAttribute('hidden', true);</script>";
+        echo "<script>document.getElementById('overlay').setAttribute('hidden', true);</script>";
+    }
+    else{
+        echo "<script>
+            Swal.fire({
+                icon: 'error',
+                title: '<p style=\"font-size: 9vh;border-bottom: 4px solid #ffffff;padding-bottom:10px;\">Oho!</p><br><p style=\"font-size: 6vh;\">Klucz który podałeś jest nie poprawny spróbuj ponownie.</p>', 
+                iconColor: '#FFD500',
+                background: '#00509D',
+                color: '#FDC500',
+                width: '50%',
+                showConfirmButton: false,
+                timer: 3000
+            });
+        </script>";
+    }
+
 }
 
     ?>
@@ -113,6 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     function showQuestion() {
         document.getElementById('questionbut').setAttribute('hidden', true);
         document.getElementById('pytanie').removeAttribute('hidden');
+        document.getElementById('overlay').removeAttribute('hidden');
         const xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
@@ -194,6 +227,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         xhr3.send();
                         document.getElementById('pytanie').setAttribute('hidden', true);
                         document.getElementById('questionbut').removeAttribute('hidden');
+                        document.getElementById('overlay').setAttribute('hidden', true);
                         pytanie_nr += 1;
                         console.log(pytanie_nr);
                         
@@ -254,6 +288,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         xhr6.send();
                                         document.getElementById('pytanie').setAttribute('hidden', true);
                                         document.getElementById('questionbut').removeAttribute('hidden');
+                                        document.getElementById('overlay').setAttribute('hidden', true);
                                         pytanie_nr += 1;
                                         console.log(pytanie_nr);
                                         
@@ -327,6 +362,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         xhr4.send();
                             document.getElementById('pytanie').setAttribute('hidden', true);
                             document.getElementById('questionbut').removeAttribute('hidden');
+                            document.getElementById('overlay').setAttribute('hidden', true);
                             pytanie_nr += 1;
                             console.log(pytanie_nr);
                             
@@ -372,6 +408,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         xhr4.send();
                             document.getElementById('pytanie').setAttribute('hidden', true);
                             document.getElementById('questionbut').removeAttribute('hidden');
+                            document.getElementById('overlay').setAttribute('hidden', true);
                             pytanie_nr += 1;
                             console.log(pytanie_nr);
                             
