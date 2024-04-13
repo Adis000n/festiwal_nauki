@@ -10,7 +10,8 @@ if (!$con) {
     pytanie_nr = 1;
     wynik = 0;
     console.log(pytanie_nr);
-</script>
+    //.
+    </script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
