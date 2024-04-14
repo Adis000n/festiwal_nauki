@@ -62,11 +62,40 @@ if (!$con) {
     </div>
     </div>
     <div id="plansza">
-
+    <img id="pawn" src="graphics/pawn.png" alt="BRAKUJE ZDJĘĆ" >
     </div>
     <button id="questionbut" class="button-87" role="button" onclick="showQuestion()" hidden>Wyświetl pytanie</button>
 
     <script>
+                function setPozycja(x, y) {
+            const planszaWidth = document.getElementById('plansza').offsetWidth;
+            const planszaHeight = document.getElementById('plansza').offsetHeight;
+
+            const percentageX = (x / planszaWidth) * 100;
+            const percentageY = (y / planszaHeight) * 100;
+
+            document.getElementById("pawn").style.left = percentageX + '%';
+            document.getElementById("pawn").style.top = percentageY + '%';
+            
+        }
+        function pozycja(pytanie_numer){
+            switch (pytanie_numer){
+                case 1:
+                    setPozycja(37,755);
+                    break;
+                case 2:
+                    setPozycja(154,755);
+                    break;
+                case 3:
+                    setPozycja(246,755);
+                    break;
+                case 4:
+                    setPozycja(337,755);
+                    break;
+            }
+        }
+        pozycja(pytanie_nr);
+
         const blob = document.getElementById("blob");
 
         window.onpointermove = event => { 
@@ -128,6 +157,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <script>
 
     document.addEventListener("DOMContentLoaded", function() {
+
+        
+
     // Get true/false buttons
     const trueButton = document.querySelector('.true-button');
     const falseButton = document.querySelector('.false-button');
@@ -230,6 +262,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         document.getElementById('questionbut').removeAttribute('hidden');
                         document.getElementById('overlay').setAttribute('hidden', true);
                         pytanie_nr += 1;
+                        pozycja(pytanie_nr);
                         console.log(pytanie_nr);
                         
                     });
@@ -291,6 +324,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         document.getElementById('questionbut').removeAttribute('hidden');
                                         document.getElementById('overlay').setAttribute('hidden', true);
                                         pytanie_nr += 1;
+                                        pozycja(pytanie_nr);
                                         console.log(pytanie_nr);
                                         
                                     });
@@ -365,6 +399,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             document.getElementById('questionbut').removeAttribute('hidden');
                             document.getElementById('overlay').setAttribute('hidden', true);
                             pytanie_nr += 1;
+                            pozycja(pytanie_nr);
                             console.log(pytanie_nr);
                             
                         });
@@ -411,6 +446,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             document.getElementById('questionbut').removeAttribute('hidden');
                             document.getElementById('overlay').setAttribute('hidden', true);
                             pytanie_nr += 1;
+                            pozycja(pytanie_nr);
                             console.log(pytanie_nr);
                             
                         });
