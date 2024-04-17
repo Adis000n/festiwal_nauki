@@ -27,6 +27,11 @@ if (!$con) {
     <link rel="shortcut icon" href="graphics/favicon.png" type="image/x-icon">
 </head>
 <body>
+    <div id="nav">
+        <div id="wynik-wys">Wynik: 0 </div>
+        <button id="questionbut" class="button-87" role="button" onclick="showQuestion()" hidden>Wyświetl pytanie</button>
+        <div id="czas-wys">Czas: - </div>
+    </div>
 <div id="blob"></div>
 <div id="blur"></div>
 <div id="overlay"></div>
@@ -65,9 +70,172 @@ if (!$con) {
     <div id="plansza">
     <img id="pawn" src="graphics/pawn.png" alt="BRAKUJE ZDJĘĆ" >
     </div>
-    <button id="questionbut" class="button-87" role="button" onclick="showQuestion()" hidden>Wyświetl pytanie</button>
 
     <script>
+        function setPozycja(x, y) {
+            const planszaWidth = document.getElementById('plansza').offsetWidth;
+            const planszaHeight = document.getElementById('plansza').offsetHeight;
+
+            const percentageX = (x / planszaWidth) * 100;
+            const percentageY = (y / planszaHeight) * 100;
+
+            document.getElementById("pawn").style.left = percentageX + '%';
+            document.getElementById("pawn").style.top = percentageY + '%';
+            
+        }
+        function pozycja(pytanie_numer){
+            switch (pytanie_numer) {
+    case 1:
+        setPozycja(33, 679);
+        break;
+    case 2:
+        setPozycja(138, 679);
+        break;
+    case 3:
+        setPozycja(221, 679);
+        break;
+    case 4:
+        setPozycja(303, 679);
+        break;
+    case 5:
+        setPozycja(386, 679);
+        break;
+    case 6:
+        setPozycja(468, 679);
+        break;
+    case 7:
+        setPozycja(551, 679);
+        break;
+    case 8:
+        setPozycja(633, 679);
+        break;
+    case 9:
+        setPozycja(714, 679);
+        break;
+    case 10:
+        setPozycja(714, 596);
+        break;
+    case 11:
+        setPozycja(714, 513);
+        break;
+    case 12:
+        setPozycja(714, 431);
+        break;
+    case 13:
+        setPozycja(714, 349);
+        break;
+    case 14:
+        setPozycja(714, 266);
+        break;
+    case 15:
+        setPozycja(714, 183);
+        break;
+    case 16:
+        setPozycja(714, 102);
+        break;
+    case 17:
+        setPozycja(714, 19);
+        break;
+    case 18:
+        setPozycja(633, 19);
+        break;
+    case 19:
+        setPozycja(549, 19);
+        break;
+    case 20:
+        setPozycja(469, 19);
+        break;
+    case 21:
+        setPozycja(387, 19);
+        break;
+    case 22:
+        setPozycja(305, 19);
+        break;
+    case 23:
+        setPozycja(221, 19);
+        break;
+    case 24:
+        setPozycja(140, 19);
+        break;
+    case 25:
+        setPozycja(57, 19);
+        break;
+    case 26:
+        setPozycja(57, 102);
+        break;
+    case 27:
+        setPozycja(57, 184);
+        break;
+    case 28:
+        setPozycja(57, 268);
+        break;
+    case 29:
+        setPozycja(57, 351);
+        break;
+    case 30:
+        setPozycja(57, 434);
+        break;
+    case 31:
+        setPozycja(57, 514);
+        break;
+    case 32:
+        setPozycja(139, 514);
+        break;
+    case 33:
+        setPozycja(222, 514);
+        break;
+    case 34:
+        setPozycja(304, 514);
+        break;
+    case 35:
+        setPozycja(387, 514);
+        break;
+    case 36:
+        setPozycja(469, 514);
+        break;
+    case 37:
+        setPozycja(549, 514);
+        break;
+    case 38:
+        setPozycja(549, 432);
+        break;
+    case 39:
+        setPozycja(549, 349);
+        break;
+    case 40:
+        setPozycja(549, 267);
+        break;
+    case 41:
+        setPozycja(549, 184);
+        break;
+    case 42:
+        setPozycja(468, 184);
+        break;
+    case 43:
+        setPozycja(385, 184);
+        break;
+    case 44:
+        setPozycja(303, 184);
+        break;
+    case 45:
+        setPozycja(222, 184);
+        break;
+    case 46:
+        setPozycja(222, 267);
+        break;
+    case 47:
+        setPozycja(222, 349);
+        break;
+    case 48:
+        setPozycja(303, 349);
+        break;
+    case 49:
+        setPozycja(411, 349);
+        break;
+}
+
+        }
+        pozycja(pytanie_nr);
         const blob = document.getElementById("blob");
 
         window.onpointermove = event => { 
@@ -97,15 +265,41 @@ if (!$con) {
         // Add event listener to re-enable the unload alert after form submission
         window.addEventListener('submit', disableUnloadAlert);
     </script>
-    <?php
+<?php
+$timerScript = "
+<script>
+    czas_start = new Date();
+    setInterval(myTimer, 1000);
+
+    function myTimer() {
+        const czas_stop = new Date();
+        const stoper = czas_stop - czas_start;
+        const seconds = Math.floor((stoper / 1000) % 60);
+        const minutes = Math.floor((stoper / (1000 * 60)) % 60);
+        const hours = Math.floor((stoper / (1000 * 60 * 60)) % 24);
+
+        const formattedTime = [
+            hours.toString().padStart(2, '0'),
+            minutes.toString().padStart(2, '0'),
+            seconds.toString().padStart(2, '0')
+        ].join(':');
+
+        document.getElementById('czas-wys').innerHTML = formattedTime;
+    }
+</script>
+";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $klucz = $_POST["klucz"];
     $klasa = $_POST["klasa"];
     $start = date("H:i:s");
     if($klucz == "1234"){
-        echo "<script>document.getElementById('questionbut').removeAttribute('hidden');</script>";
-        echo "<script>document.getElementById('start').setAttribute('hidden', true);</script>";
-        echo "<script>document.getElementById('overlay').setAttribute('hidden', true);</script>";
+        echo "<script>";
+        echo "document.getElementById('questionbut').removeAttribute('hidden');";
+        echo "document.getElementById('start').setAttribute('hidden', true);";
+        echo "document.getElementById('overlay').setAttribute('hidden', true);";
+        echo "</script>";
+        echo $timerScript;
     }
     else{
         echo "<script>
@@ -124,14 +318,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
-    ?>
+
+?>
+
+
 </body>
 <script>
 
     document.addEventListener("DOMContentLoaded", function() {
-
-        
-
     // Get true/false buttons
     const trueButton = document.querySelector('.true-button');
     const falseButton = document.querySelector('.false-button');
@@ -201,6 +395,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 console.log("Response:", response);
                                 if (response.toUpperCase() === answerValue.toUpperCase()) {
                                     wynik += 1;
+                                    document.getElementById("wynik-wys").innerHTML = "Wynik: "+wynik;
                                     Swal.fire({
                                         icon: "success",
                                         title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;'>Dobra robota!</p><br><p style='font-size: 6vh;'>Ta odpowiedź jest poprawna</p>", 
@@ -263,6 +458,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 console.log("Response:", response);
                                                 if (response.toLowerCase() == selectedOption.toLowerCase() ) {
                                                     wynik += 1;
+                                                    document.getElementById("wynik-wys").innerHTML = "Wynik: "+wynik;
                                                     Swal.fire({
                                                         icon: "success",
                                                         title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;'>Dobra robota!</p><br><p style='font-size: 6vh;'>Ta odpowiedź jest poprawna</p>",
@@ -338,6 +534,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 console.log("Response:", response);
                                 if (response.toLowerCase() == "true") {
                                     wynik += 1;
+                                    document.getElementById("wynik-wys").innerHTML = "Wynik: "+wynik;
                                     Swal.fire({
                                         icon: "success",
                                         title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;'>Dobra robota!</p><br><p style='font-size: 5vh;'>Ta odpowiedź jest poprawna</p>", 
@@ -385,6 +582,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 console.log("Response:", response);
                                 if (response.toLowerCase() == "false") {
                                     wynik += 1;
+                                    document.getElementById("wynik-wys").innerHTML = "Wynik: "+wynik;
                                     Swal.fire({
                                         icon: "success",
                                         title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;'>Dobra robota!</p><br><p style='font-size: 6vh;'>Ta odpowiedź jest poprawna</p>",
