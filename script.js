@@ -14,154 +14,154 @@
             
         }
         function pozycja(pytanie_numer){
-            switch (pytanie_numer){
+            switch (pytanie_numer) {
                 case 1:
-                    setPozycja(37,755);
+                    setPozycja(33, 679);
                     break;
                 case 2:
-                    setPozycja(154,755);
+                    setPozycja(138, 679);
                     break;
                 case 3:
-                    setPozycja(246,755); 
+                    setPozycja(221, 679);
                     break;
                 case 4:
-                    setPozycja(337,755);
+                    setPozycja(303, 679);
                     break;
                 case 5:
-                    setPozycja(429,755);
+                    setPozycja(386, 679);
                     break;
                 case 6:
-                    setPozycja(521,755)
+                    setPozycja(468, 679);
                     break;
                 case 7:
-                    setPozycja(613,755)
+                    setPozycja(551, 679);
                     break;
                 case 8:
-                    setPozycja(704,755)
+                    setPozycja(633, 679);
                     break;
                 case 9:
-                    setPozycja(794,755)
-                break;
+                    setPozycja(714, 679);
+                    break;
                 case 10:
-                    setPozycja(794,663)
-                break;
+                    setPozycja(714, 596);
+                    break;
                 case 11:
-                    setPozycja(794,571)
-                break;
+                    setPozycja(714, 513);
+                    break;
                 case 12:
-                    setPozycja(794,479)
-                break;
+                    setPozycja(714, 431);
+                    break;
                 case 13:
-                    setPozycja(794,388)
-                break;
+                    setPozycja(714, 349);
+                    break;
                 case 14:
-                    setPozycja(794,296)
-                break;
+                    setPozycja(714, 266);
+                    break;
                 case 15:
-                    setPozycja(794,204)
-                break;
+                    setPozycja(714, 183);
+                    break;
                 case 16:
-                    setPozycja(794,114)
-                break;
+                    setPozycja(714, 102);
+                    break;
                 case 17:
-                    setPozycja(794,22)
-                break;
+                    setPozycja(714, 19);
+                    break;
                 case 18:
-                    setPozycja(704,22)
-                break;
+                    setPozycja(633, 19);
+                    break;
                 case 19:
-                    setPozycja(611,22)
-                break;
+                    setPozycja(549, 19);
+                    break;
                 case 20:
-                    setPozycja(522,22)
-                break;
+                    setPozycja(469, 19);
+                    break;
                 case 21:
-                    setPozycja(430,22)
-                break;
+                    setPozycja(387, 19);
+                    break;
                 case 22:
-                    setPozycja(339,22)
-                break;
+                    setPozycja(305, 19);
+                    break;
                 case 23:
-                    setPozycja(246,22)
-                break;
+                    setPozycja(221, 19);
+                    break;
                 case 24:
-                    setPozycja(156,22)
-                break;
+                    setPozycja(140, 19);
+                    break;
                 case 25:
-                    setPozycja(64,22)
-                break;
+                    setPozycja(57, 19);
+                    break;
                 case 26:
-                    setPozycja(64,114)
-                break;
+                    setPozycja(57, 102);
+                    break;
                 case 27:
-                    setPozycja(64,205)
-                break;
+                    setPozycja(57, 184);
+                    break;
                 case 28:
-                    setPozycja(64,298)
-                break;
+                    setPozycja(57, 268);
+                    break;
                 case 29:
-                    setPozycja(64,390)
-                break;
+                    setPozycja(57, 351);
+                    break;
                 case 30:
-                    setPozycja(64,482)
-                break;
+                    setPozycja(57, 434);
+                    break;
                 case 31:
-                    setPozycja(64,572)
-                break;
+                    setPozycja(57, 514);
+                    break;
                 case 32:
-                    setPozycja(155,572)
-                break;
+                    setPozycja(139, 514);
+                    break;
                 case 33:
-                    setPozycja(247,572)
-                break;
+                    setPozycja(222, 514);
+                    break;
                 case 34:
-                    setPozycja(338,572)
-                break;
+                    setPozycja(304, 514);
+                    break;
                 case 35:
-                    setPozycja(430,572)
-                break;
+                    setPozycja(387, 514);
+                    break;
                 case 36:
-                    setPozycja(521,572)
-                break;
+                    setPozycja(469, 514);
+                    break;
                 case 37:
-                    setPozycja(610,572)
-                break;
+                    setPozycja(549, 514);
+                    break;
                 case 38:
-                    setPozycja(610,480)
-                break;
+                    setPozycja(549, 432);
+                    break;
                 case 39:
-                    setPozycja(610,388)
-                break;
+                    setPozycja(549, 349);
+                    break;
                 case 40:
-                    setPozycja(610,296)
-                break;
+                    setPozycja(549, 267);
+                    break;
                 case 41:
-                    setPozycja(610,205)
-                break;
+                    setPozycja(549, 184);
+                    break;
                 case 42:
-                    setPozycja(520,205)
-                break;
+                    setPozycja(468, 184);
+                    break;
                 case 43:
-                    setPozycja(428,205)
-                break;
+                    setPozycja(385, 184);
+                    break;
                 case 44:
-                    setPozycja(337,205)
-                break;
+                    setPozycja(303, 184);
+                    break;
                 case 45:
-                    setPozycja(247,205)
-                break;
+                    setPozycja(222, 184);
+                    break;
                 case 46:
-                    setPozycja(247,296)
-                break;
+                    setPozycja(222, 267);
+                    break;
                 case 47:
-                    setPozycja(247,388)
-                break;
+                    setPozycja(222, 349);
+                    break;
                 case 48:
-                    setPozycja(337,388)
-                break;
+                    setPozycja(303, 349);
+                    break;
                 case 49:
-                    setPozycja(457,388)
-                break;
+                    setPozycja(411, 349);
+                    break;
             }
         }
         pozycja(pytanie_nr);
