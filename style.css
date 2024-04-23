@@ -24,8 +24,8 @@ body {
     z-index: -6;
   }
   #pawn {
-    width: 83px;
-    height: 83px;
+    width: 75px;
+    height: 75px;
     top: 0;
     left: 0;
     border-radius: 50%;

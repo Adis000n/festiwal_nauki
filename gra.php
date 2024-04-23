@@ -18,6 +18,7 @@ if (!$con) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="graphics/favicon.png" type="image/x-icon">
 </head>
 <body>
     <div id="nav">
