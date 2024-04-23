@@ -200,8 +200,8 @@ input{
   bottom: 1%; 
   left: 50%;
   transform: translateX(-50%); 
-  width: 900px;
-  height: 850px;
+  width: 810px;
+  height: 765px;
   background-image: url('graphics/plansza_f.png');
   background-size: cover;
   background-position: center;
@@ -264,6 +264,7 @@ input{
     transform: scale(0.1);
   }
   #nav{
+    z-index: 50;
     position: absolute;
     display: flex;
     justify-content: space-evenly; /* Keeps items spaced evenly */
