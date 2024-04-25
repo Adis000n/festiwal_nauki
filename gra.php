@@ -56,8 +56,8 @@ if (!$con) {
             <h1>Pytanie</h1>
             <div id="pytanie-tresc">
             </div>
+            <span class="loader"></span>
         </div>
-        
         <div id="answer-form" disabled>
     </div>
     </div>

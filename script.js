@@ -161,6 +161,7 @@
                     break;
                 case 49:
                     setPozycja(411, 349);
+                    document.getElementById('questionbut').setAttribute('hidden', true);
                     break;
             }
         }
@@ -210,6 +211,7 @@
     });
 });
     function showQuestion() {
+        document.querySelector('.loader').style.display = 'block';
         document.getElementById('questionbut').setAttribute('hidden', true);
         document.getElementById('pytanie').removeAttribute('hidden');
         document.getElementById('overlay').removeAttribute('hidden');
@@ -218,6 +220,7 @@
             if (xhr.readyState === 4 && xhr.status === 200) {
                 const response = xhr.responseText;
                 document.getElementById('pytanie-tresc').innerHTML = response;
+                checkIfBothLoaded();
             }
         };
         xhr.open('GET', `script-tresc.php?pytanie_nr=${pytanie_nr}`, true);
@@ -296,6 +299,8 @@
                         document.getElementById('pytanie').setAttribute('hidden', true);
                         document.getElementById('questionbut').removeAttribute('hidden');
                         document.getElementById('overlay').setAttribute('hidden', true);
+                        document.getElementById('answer-form').innerHTML = "";
+                        document.getElementById('pytanie-tresc').innerHTML = "";
                         pytanie_nr += 1;
                         pozycja(pytanie_nr);
                         console.log(pytanie_nr);
@@ -359,6 +364,8 @@
                                         document.getElementById('pytanie').setAttribute('hidden', true);
                                         document.getElementById('questionbut').removeAttribute('hidden');
                                         document.getElementById('overlay').setAttribute('hidden', true);
+                                        document.getElementById('answer-form').innerHTML = "";
+                                        document.getElementById('pytanie-tresc').innerHTML = "";
                                         pytanie_nr += 1;
                                         pozycja(pytanie_nr);
                                         console.log(pytanie_nr);
@@ -435,6 +442,8 @@
                             document.getElementById('pytanie').setAttribute('hidden', true);
                             document.getElementById('questionbut').removeAttribute('hidden');
                             document.getElementById('overlay').setAttribute('hidden', true);
+                            document.getElementById('answer-form').innerHTML = "";
+                            document.getElementById('pytanie-tresc').innerHTML = "";
                             pytanie_nr += 1;
                             pozycja(pytanie_nr);
                             console.log(pytanie_nr);
@@ -483,24 +492,44 @@
                             document.getElementById('pytanie').setAttribute('hidden', true);
                             document.getElementById('questionbut').removeAttribute('hidden');
                             document.getElementById('overlay').setAttribute('hidden', true);
+                            document.getElementById('answer-form').innerHTML = "";
+                            document.getElementById('pytanie-tresc').innerHTML = "";
                             pytanie_nr += 1;
                             pozycja(pytanie_nr);
                             console.log(pytanie_nr);
                             
                         });
                         document.getElementById('answer-form').style.display = 'block';
-                        document.getElementById('answer-form').style.gridTemplateColumns = 'none'; // Reset to default
+                        document.getElementById('answer-form').style.gridTemplateColumns = 'none'; 
                         document.getElementById('answer-form').style.gap = '0';
                     }
+
+                    checkIfBothLoaded();
             }
         };
         xhr2.open('GET', `script-typ.php?pytanie_nr=${pytanie_nr}`, true);
         xhr2.send();
     }
-function koniec(klasa, start) {
-    if(pytanie_nr==49){ //no trzeba dodać ile jest pól
 
-          document.getElementById("questionbut").disabled=true;
+    function checkIfBothLoaded() {
+        const questionLoaded = document.getElementById('pytanie-tresc').innerHTML.trim() !== '';
+        const responseType = document.getElementById('answer-form').getAttribute('data-response-type');
+        const buttonsLoaded = responseType === 'closed' ? document.querySelectorAll('.option-button').length > 0 : true;
+    
+        if (questionLoaded && buttonsLoaded) {
+            // Both question and answer buttons are loaded
+            document.querySelector('.loader').style.display = 'none';
+        } else {
+            // If question is loaded but answer buttons are not, or if it's a closed question and options are not loaded yet, keep the loader visible
+            document.querySelector('.loader').style.display = 'block';
+        }
+    }
+    
+    
+function koniec(klasa, start) {
+    if(pytanie_nr==49){ 
+
+        document.getElementById('questionbut').setAttribute('hidden', true);
         const now=new Date();
         const czas_kon=now.getHours()+":"+now.getMinutes()+":"+now.getSeconds();
         console.log(czas_kon);
