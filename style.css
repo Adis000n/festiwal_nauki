@@ -24,6 +24,50 @@ body {
     z-index: -6;
   }
 
+  #loaderBG{
+    width: 100vw;
+    height: 100vh;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.600);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .loader2 {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: inline-block;
+    border-top: 10px solid #00a6ff;
+    border-right: 10px solid transparent;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+  .loader2::after {
+    content: '';  
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border-bottom: 10px solid #FFD500;
+    border-left: 10px solid transparent;
+  }
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  } 
+
+
+
+
   .loader {
     transform: rotateZ(45deg);
     perspective: 300px;
@@ -123,7 +167,7 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); 
-    z-index: 998; 
+    z-index: 997; 
 }
 
 .popUp {
@@ -140,7 +184,7 @@ body {
     opacity: 1;
     background: radial-gradient(circle, transparent 20%, #003F88 20%, #003F88 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #003F88 20%, #003F88 80%, transparent 80%, transparent) 15px 15px, linear-gradient(#ffc800 1.2000000000000002px, transparent 1.2000000000000002px) 0 -0.6000000000000001px, linear-gradient(90deg, #FDC500 1.2000000000000002px, #003F88 1.2000000000000002px) -0.6000000000000001px 0;
     background-size: 30px 30px, 30px 30px, 15px 15px, 15px 15px;
-    z-index: 999;
+    z-index: 998;
 }
 
 #start{
@@ -352,7 +396,7 @@ input{
     font-family: "Poppins", sans-serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 5vh;
+    font-size: 4.5vh;
     border-bottom: 5px solid rgba(255, 255, 255, 0.248);
     padding: 0.8vh;
     background-color: rgba(255, 255, 255, 0.136);

@@ -18,14 +18,17 @@ if (!$con) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
     <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="graphics/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="graphics/pawn.png" type="image/x-icon">
 </head>
-<body>
+<body onload="hideLoader2()">
     <div id="nav">
         <div id="wynik-wys">Wynik: 0 </div>
         <button id="questionbut" class="button-87" role="button" onclick="showQuestion()" hidden>Wyświetl pytanie</button>
         <div id="czas-wys">Czas: - </div>
     </div>
+<div id="loaderBG" >
+    <span class="loader2"></span>
+</div>
 <div id="blob"></div>
 <div id="blur"></div>
 <div id="overlay"></div>
@@ -37,7 +40,7 @@ if (!$con) {
         <div class="row g-2">
             <div class="col-md">
                 <div class="form-floating mb-3" id="klucz">
-                    <input type="password" class="form-control" id="floatingInputGrid1" placeholder="1234" name="klucz" style="font-size: 3vh;height:100%;" maxlength="4" minlength="4">
+                    <input type="password" class="form-control" id="floatingInputGrid1"  name="klucz" style="font-size: 3vh;height:100%;" maxlength="4" minlength="4">
                     <label for="floatingInputGrid" style="font-size: 2vh;height:100%;"><strong>Wpisz klucz zabezpiczejący, załączony w wiadomości</strong> (np. 1234)</label>
                 </div>
             </div>
@@ -104,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script>
             Swal.fire({
                 icon: 'error',
-                title: '<p style=\"font-size: 9vh;border-bottom: 4px solid #ffffff;padding-bottom:10px;\">Oho!</p><br><p style=\"font-size: 6vh;\">Klucz który podałeś jest nie poprawny spróbuj ponownie.</p>', 
+                title: '<p style=\"font-size: 9vh;border-bottom: 4px solid #ffffff;padding-bottom:10px;\">Oho!</p><br><p style=\"font-size: 6vh;\">Podany klucz nie jest poprawny.</p>', 
                 iconColor: '#FFD500',
                 background: '#00509D',
                 color: '#FDC500',
