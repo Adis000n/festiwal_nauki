@@ -177,6 +177,7 @@
                     var data = "klasa=" + encodeURIComponent(klasa) + "&start=" + encodeURIComponent(start)+ "&koniec="+encodeURIComponent(czas_kon) +"&wynik="+ encodeURIComponent(wynik);
                     xhr.send(data);
 
+                    //konfetti POCZĄTEK =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-==-=-==-==-=-==-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
                     const duration = 15 * 1000,
                 animationEnd = Date.now() + duration,
                 defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
@@ -207,6 +208,8 @@
                     })
                 );
                 }, 250);
+                //konfetti KONIEC =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-==-=-==-==-=-==-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                koniec();
             }
         }
         pozycja(pytanie_nr);
@@ -585,6 +588,29 @@ function hideLoader2() {
         }
     }
     
+}
+
+function koniec() {
+    setTimeout(() => {
+        Swal.fire({
+            title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;padding-bottom:10px;'>Świetnie!</p><br><p style='font-size: 5vh;'>Kliknij w przycisk poniżej aby przejść do tablicy wyników i zobaczyć swój wynik oraz porównać się do innych klas.</p>", 
+            imageUrl: "graphics/crown.gif",
+            imageWidth: 200,
+            imageHeight: 200,
+            imageAlt: "Korona",
+            background: "#00509D",
+            showConfirmButton: true,
+            color: "#FDC500",
+            width: "75%",
+            confirmButtonColor: "#fff",
+            confirmButtonText: "<h2 style='color:black'>Do wyników!</h2>"
+        }).then((result) => {
+            disableUnloadAlert();
+            if (result.isConfirmed) {
+            window.location = "wyniki.php";
+            }
+          });
+      }, 2500);
 }
 
 
