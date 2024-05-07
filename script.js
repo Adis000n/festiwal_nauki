@@ -313,7 +313,7 @@ function hideLoader2() {
                         const inputField = document.querySelector('input[name="odpowiedz"]');
                         if (inputField) {
                             answerValue = inputField.value;
-                            // showLoader2();
+                             showLoader2();
                             console.log(answerValue)
                             if(answerValue==""){
                                 alert("Bruh nie można odpowiedzieć niczym na pytanie")
@@ -370,52 +370,7 @@ function hideLoader2() {
                         } else {
                             // Handle the absence of an input field (open-ended question)
                             answerValue = "Open-ended answer";
-                        }
-                        // const xhr3 = new XMLHttpRequest();
-                        // xhr3.onreadystatechange = function () {
-                        //     if (xhr3.readyState === 4 && xhr3.status === 200) {
-                        //         const response = xhr3.responseText;
-                        //         if (response.toUpperCase() === answerValue.toUpperCase()) {
-                        //             wynik += 1;
-                        //             document.getElementById("wynik-wys").innerHTML = "Wynik: "+wynik;
-                        //             hideLoader2();
-                        //             Swal.fire({
-                        //                 icon: "success",
-                        //                 title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;'>Dobra robota!</p><br><p style='font-size: 6vh;'>Ta odpowiedź jest poprawna</p>", 
-                        //                 iconColor: "#FFD500",
-                        //                 background: "#00509D",
-                        //                 color: "#FDC500",
-                        //                 width: "50%",
-                        //                 showConfirmButton: false,
-                        //                 timer: 2500
-                        //                 });
-                                    
-                        //         }
-                        //         else{
-                        //             hideLoader2();
-                        //             Swal.fire({
-                        //                 icon: "error",
-                        //                 title: "<p style='font-size: 9vh;border-bottom: 4px solid #ffffff;padding-bottom:10px;'>Niestety!</p><br><p style='font-size: 6vh;'>Ta odpowiedź nie jest poprawna</p>", 
-                        //                 iconColor: "#FFD500",
-                        //                 background: "#00509D",
-                        //                 color: "#FDC500",
-                        //                 width: "50%",
-                        //                 showConfirmButton: false,
-                        //                 timer: 2500
-                        //                 });
-                        //         }
-                        //     }
-                        // };
-                        // xhr3.open('GET', `script-odp1.php?pytanie_nr=${pytanie_nr}`, true);
-                        // xhr3.send();
-                        // document.getElementById('pytanie').setAttribute('hidden', true);
-                        // document.getElementById('questionbut').removeAttribute('hidden');
-                        // document.getElementById('overlay').setAttribute('hidden', true);
-                        // document.getElementById('answer-form').innerHTML = "";
-                        // document.getElementById('pytanie-tresc').innerHTML = "";
-                        // pytanie_nr += 1;
-                        // pozycja(pytanie_nr);
-                        
+                        }  
                     });
                     document.getElementById('answer-form').appendChild(submitButton);
                     } else if (response2 === 'closed') {
