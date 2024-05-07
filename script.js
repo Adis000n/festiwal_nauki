@@ -1,3 +1,13 @@
+function checkInput() {
+    var inputField = document.getElementById("floatingInputGrid2");
+    var submitButton = document.getElementById("btn-start");
+  
+    if (inputField.value.trim() === "") {
+      submitButton.disabled = true;
+    } else {
+      submitButton.disabled = false;
+    }
+  }
     pytanie_nr = 1;
     wynik = 0;
     answers2Loaded = false;
@@ -311,16 +321,18 @@ function hideLoader2() {
                         event.preventDefault(); // prevent the default form submission behavior
                         let answerValue;  
                         const inputField = document.querySelector('input[name="odpowiedz"]');
+                        
                         if (inputField) {
                             answerValue = inputField.value;
                              showLoader2();
                             console.log(answerValue)
-                            if(answerValue==""){
-                                alert("Bruh nie można odpowiedzieć niczym na pytanie")
-                                showQuestion()//jak pokazać pytanie jeszcze razzzzz
-                                hideLoader2();
-
-                            }else{
+                            // if (inputField.value.trim() === ""){
+                                // submitButton.disabled = true;
+                                // showQuestion()//jak pokazać pytanie jeszcze razzzzz
+                                // hideLoader2();
+//
+                            // }else{
+                                // submitButton.disabled = false;
                                 //wysyłanie
                                 const xhr3 = new XMLHttpRequest();
                         xhr3.onreadystatechange = function () {
@@ -366,13 +378,30 @@ function hideLoader2() {
                         document.getElementById('pytanie-tresc').innerHTML = "";
                         pytanie_nr += 1;
                         pozycja(pytanie_nr);
-                            }
+                            
                         } else {
                             // Handle the absence of an input field (open-ended question)
                             answerValue = "Open-ended answer";
                         }  
                     });
+                    document.getElementById('answer-form').appendChild(inputDiv);
                     document.getElementById('answer-form').appendChild(submitButton);
+                    
+                    checkInput();
+
+                    // Dodajemy naszą funkcję checkInput, która będzie wywoływana za każdym razem, gdy tekst w polu odpowiedzi zostanie zmieniony
+                    function checkInput() {
+                        const inputField = document.querySelector('input[name="odpowiedz"]');
+                        if (inputField.value.trim() === "") {
+                            // Jeśli pole odpowiedzi jest puste, wyłączamy przycisk
+                            submitButton.disabled = true;
+                        } else {
+                            submitButton.disabled = false;
+                        }
+                    }
+            
+                    // Dodajemy zdarzenie nasłuchujące na zmiany w polu odpowiedzi
+                    inputDiv.addEventListener('input', checkInput);
                     } else if (response2 === 'closed') {
                         const xhr5 = new XMLHttpRequest();
                         let options = []; // Define options array outside the callback function

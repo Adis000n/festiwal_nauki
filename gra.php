@@ -46,12 +46,12 @@ if (!$con) {
             </div>
             <div class="col-md">
                 <div class="form-floating mb-3" id="klasa-id">
-                    <input type="text" class="form-control" id="floatingInputGrid2" placeholder="klasa" name="klasa" style="font-size: 3vh;height:100%;">
+                    <input type="text" class="form-control" id="floatingInputGrid2" placeholder="klasa" name="klasa" style="font-size: 3vh;height:100%;" onkeyup="checkInput()">
                     <label for="floatingInputGrid" style="font-size: 2vh;height:100%;"><strong>Wpisz nazwę klasy:</strong> (np. 2TP)</label>
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-warning btn-lg" id="btn-start">Rozpocznij</button>
+        <button type="submit" class="btn btn-warning btn-lg" id="btn-start" disabled>Rozpocznij</button>
     </form>
 </div>
     <div id="pytanie" class="popUp" hidden>
