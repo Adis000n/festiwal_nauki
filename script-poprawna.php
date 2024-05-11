@@ -1,10 +1,5 @@
 <?php
-$con = mysqli_connect("localhost", "root", "", "festiwal_nauki");
-
-// Check if the connection is successful
-if (!$con) {
-    die("Connection failed: " . mysqli_connect_error());
-}
+include 'db_spec.php';
 
 // Check if pytanie_nr is set in the URL
 if(isset($_GET['pytanie_nr'])) {

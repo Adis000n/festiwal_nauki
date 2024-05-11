@@ -1,3 +1,6 @@
+
+
+
 function checkInput() {
     var inputField = document.getElementById("floatingInputGrid2");
     var submitButton = document.getElementById("btn-start");
@@ -274,8 +277,6 @@ function showLoader2() {
 function hideLoader2() {
     document.getElementById('loaderBG').setAttribute('hidden', true);
 }
-
-
     function showQuestion() {
         document.querySelector('.loader').style.display = 'block';
         document.getElementById('questionbut').setAttribute('hidden', true);
@@ -325,15 +326,6 @@ function hideLoader2() {
                         if (inputField) {
                             answerValue = inputField.value;
                              showLoader2();
-                            console.log(answerValue)
-                            // if (inputField.value.trim() === ""){
-                                // submitButton.disabled = true;
-                                // showQuestion()//jak pokazać pytanie jeszcze razzzzz
-                                // hideLoader2();
-//
-                            // }else{
-                                // submitButton.disabled = false;
-                                //wysyłanie
                                 const xhr3 = new XMLHttpRequest();
                         xhr3.onreadystatechange = function () {
                             if (xhr3.readyState === 4 && xhr3.status === 200) {
@@ -544,7 +536,6 @@ function hideLoader2() {
                             pytanie_nr += 1;
                             pozycja(pytanie_nr);
                         });
-
                         falseButton.addEventListener('click', function() {
                             showLoader2();
                             document.getElementById('answer-input').value = 'false';  
@@ -603,8 +594,99 @@ function hideLoader2() {
         xhr2.open('GET', `script-typ.php?pytanie_nr=${pytanie_nr}`, true);
         xhr2.send();
     }
+    
+let czas_start;
 
-  function checkIfBothLoaded() {
+function startLogin(){
+    showLoader2();
+    const inputKlasa = document.querySelector('input[name="klasa"]');
+    const inputKlucz = document.querySelector('input[name="klucz"]');
+    klasaValue = inputKlasa.value;
+    kluczValue = inputKlucz.value;
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText); 
+            klasa = response.klasa; 
+            wynik = response.wynik; 
+            pytanie_nr = response.nr_pytanie;
+            czas_start = parseTimeString(response.start);
+            hideLoader2();
+            if(response.status == "klucz-niepoprawny"){
+                Swal.fire({
+                    icon: 'error',
+                    title: '<p style=\"font-size: 9vh;border-bottom: 4px solid #ffffff;padding-bottom:10px;\">Oho!</p><br><p style=\"font-size: 6vh;\">Podany klucz nie jest poprawny.</p>', 
+                    iconColor: '#FFD500',
+                    background: '#00509D',
+                    color: '#FDC500',
+                    width: '50%',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+            }
+            else if(response.status == "nowy"){
+                document.getElementById('questionbut').removeAttribute('hidden');
+                document.getElementById('start').setAttribute('hidden', true);
+                document.getElementById('overlay').setAttribute('hidden', true);
+                timerFunc();
+            }
+            else if(response.status == "istnieje"){
+                Swal.fire({
+                    icon: 'info',
+                    title: '<p style=\"font-size: 9vh;border-bottom: 4px solid #ffffff;padding-bottom:10px;\">Oho!</p><br><p style=\"font-size: 6vh;\">Podana klasa już istnieje przywracam stan przed zamknięciem.</p>', 
+                    iconColor: '#FFD500',
+                    background: '#00509D',
+                    color: '#FDC500',
+                    width: '50%',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+                pozycja(pytanie_nr);
+                document.getElementById("wynik-wys").innerHTML = "Wynik: "+wynik;
+                document.getElementById('questionbut').removeAttribute('hidden');
+                document.getElementById('start').setAttribute('hidden', true);
+                document.getElementById('overlay').setAttribute('hidden', true);
+                timerFunc();
+            }
+            else if(response.status == "zrobione"){
+                window.location = "gra.html";
+            }
+        }
+    };
+    xhr.open('GET', `script-login.php?klasa=${klasaValue}&klucz=${kluczValue}`, true);
+    xhr.send();
+}
+function parseTimeString(timeString) {
+    if (!timeString) {
+        return null; 
+    }
+    const currentDate = new Date();
+    const [hours, minutes, seconds] = timeString.split(':');
+    const startTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), hours, minutes, seconds);
+    return startTime;
+}
+
+function timerFunc(){
+    const czas_start_copy = czas_start; 
+    setInterval(myTimer, 1000);
+    function myTimer() {
+        const czas_stop = new Date(); 
+        const stoper = czas_stop - czas_start_copy; 
+        const seconds = Math.floor((stoper / 1000) % 60);
+        const minutes = Math.floor((stoper / (1000 * 60)) % 60);
+        const hours = Math.floor((stoper / (1000 * 60 * 60)) % 24);
+
+        const formattedTime = [
+            hours.toString().padStart(2, '0'),
+            minutes.toString().padStart(2, '0'),
+            seconds.toString().padStart(2, '0')
+        ].join(':');
+
+        document.getElementById('czas-wys').innerHTML = formattedTime;
+    }
+}
+
+function checkIfBothLoaded() {
     const questionLoaded = document.getElementById('pytanie-tresc').innerHTML.trim() !== '';
     const responseType = document.getElementById('answer-form').getAttribute('data-response-type');
     const buttonsLoaded = responseType === 'closed' ? document.querySelectorAll('.option-button').length > 0 : true;
@@ -626,6 +708,7 @@ function hideLoader2() {
     }
     
 }
+
 
 function koniec() {
     setTimeout(() => {
@@ -649,6 +732,3 @@ function koniec() {
           });
       }, 2500);
 }
-
-
-

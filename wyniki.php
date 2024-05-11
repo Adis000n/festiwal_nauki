@@ -22,17 +22,11 @@
   <h1>Wyniki</h1></header>
   <div id="records">
     <?php
-      // Połączenie z bazą danych
-      $conn = mysqli_connect('localhost', 'root', '', 'festiwal_nauki');
-
-      // Sprawdzenie połączenia
-      if (!$conn) {
-        die('Błąd połączenia z bazą danych: ' . mysqli_connect_error());
-      }
+  include 'db_spec.php';
 
       // Pobranie rekordów z bazy danych
-      $sql = 'SELECT nazwa,punkty,wynik FROM klasa ORDER BY punkty desc, wynik';
-      $result = mysqli_query($conn, $sql);
+      $sql = 'SELECT nazwa,punkty,wynik FROM klasa WHERE nr_pytanie = 49 ORDER BY punkty desc, wynik';
+      $result = mysqli_query($con, $sql);
 
       // Wyświetlenie rekordów
       $licznik=1;
@@ -56,7 +50,7 @@
       }
 
       // Zamknięcie połączenia
-      mysqli_close($conn);
+      mysqli_close($con);
     ?>
   </div>
 </body>

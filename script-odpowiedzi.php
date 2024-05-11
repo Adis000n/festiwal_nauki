@@ -1,11 +1,6 @@
 <?php
 // Connect to the database
-$con = mysqli_connect("localhost", "root", "", "festiwal_nauki");
-
-// Check if the connection is successful
-if (!$con) {
-    die("Connection failed: " . mysqli_connect_error());
-}
+include 'db_spec.php';
 
 // Set UTF-8 encoding
 mysqli_set_charset($con, "utf8");

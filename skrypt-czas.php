@@ -1,15 +1,5 @@
 <?php
-$hostname = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "festiwal_nauki";
-        $connection = mysqli_connect($hostname, $username, $password, $dbname);
-        
-        
-        // Check if the connection was successful
-        if (!$connection) {
-          die("Connection failed: " . mysqli_connect_error());
-        }
+    include 'db_spec.php';
         
         // Check if the form was submitted
         if(isset($_POST['klasa'])){
@@ -25,13 +15,13 @@ $wynik=$_POST['wynik'];
         
           $sql = "INSERT INTO klasa  VALUES (default,'$klasa','$czas_kon','$start',null,$wynik)";
         
-          if (mysqli_query($connection, $sql)) {
+          if (mysqli_query($con, $sql)) {
             echo "Rekord Dodany do bazy danych";
           } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($connection);
+            echo "Error: " . $sql . "<br>" . mysqli_error($con);
           }
         }
         
-        // Close the database connection
-        mysqli_close($connection);
+        // Close the database con
+        mysqli_close($con);
         ?>
