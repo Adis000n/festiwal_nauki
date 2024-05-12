@@ -23,15 +23,13 @@ if(isset($_GET['klasa']) && isset($_GET['klucz'])) {
             $response['start'] = $existing_record['czas_start'];
             $response['nr_pytanie'] = intval($existing_record['nr_pytanie']);
             $response['wynik'] = intval($existing_record['punkty']);
-
+            $response['api_key'] = $existing_record['api_key'];
         } else {
-            $sql = "INSERT INTO klasa VALUES (default,'$klasa','0','$start',null,0,1)";
+            $api_key = bin2hex(random_bytes(16));
+            $sql = "INSERT INTO klasa(nazwa, api_key, czas_start) VALUES ('$klasa','$api_key','$start')";
             if (mysqli_query($con, $sql)) {
                 $response['status'] = "nowy";
-                $response['klasa'] = $klasa;
-                $response['start'] = $start;
-                $response['nr_pytanie'] = 1; 
-                $response['wynik'] = 0; 
+                $response['api_key'] = $api_key;
             } else {
                 $response['status'] = "Error";
                 $response['message'] = "Error: " . $sql . "<br>" . mysqli_error($con);
