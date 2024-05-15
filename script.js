@@ -310,7 +310,7 @@ function showQuestion() {
             checkIfBothLoaded();
         }
     };
-    xhr.open('GET', `script-tresc.php?pytanie_nr=${pytanie_nr}`, true);
+    xhr.open('GET', `script-tresc.php?api_key=${api_key}`, true);
     xhr.send();
     const xhr2 = new XMLHttpRequest();
     xhr2.onreadystatechange = function () {
@@ -349,7 +349,7 @@ function showQuestion() {
                         xhr3.onreadystatechange = function () {
                             if (xhr3.readyState === 4 && xhr3.status === 200) {
                                 const response = xhr3.responseText;
-                                if (response.toUpperCase() === answerValue.toUpperCase()) {
+                                if (response == "dobrze") {
                                     wynik += 1;
                                     document.getElementById("wynik-wys").innerHTML = "Wynik: " + wynik;
                                     hideLoader2();
@@ -363,7 +363,6 @@ function showQuestion() {
                                         showConfirmButton: false,
                                         timer: 2500
                                     });
-
                                 }
                                 else {
                                     hideLoader2();
@@ -380,7 +379,7 @@ function showQuestion() {
                                 }
                             }
                         };
-                        xhr3.open('GET', `script-odp1.php?pytanie_nr=${pytanie_nr}`, true);
+                        xhr3.open('GET', `script-odp1.php?api_key=${api_key}&answerValue=${answerValue}`, true);
                         xhr3.send();
                         document.getElementById('pytanie').setAttribute('hidden', true);
                         document.getElementById('questionbut').removeAttribute('hidden');
@@ -389,7 +388,6 @@ function showQuestion() {
                         document.getElementById('pytanie-tresc').innerHTML = "";
                         pytanie_nr += 1;
                         pozycja(pytanie_nr);
-
                     } else {
                         // Handle the absence of an input field (open-ended question)
                         answerValue = "Open-ended answer";
@@ -610,7 +608,7 @@ function showQuestion() {
             checkIfBothLoaded();
         }
     };
-    xhr2.open('GET', `script-typ.php?pytanie_nr=${pytanie_nr}`, true);
+    xhr2.open('GET', `script-typ.php?api_key=${api_key}`, true);
     xhr2.send();
 }
 
@@ -691,6 +689,7 @@ function startLogin() {
                 document.getElementById('overlay').setAttribute('hidden', true);
                 document.cookie = "api_key=" + response.api_key + "; path=/;";
                 timerFunc();
+                api_key = getCookie("api_key");
             }
             else if (response.status == "istnieje") {
                 Swal.fire({
@@ -703,7 +702,6 @@ function startLogin() {
                     showConfirmButton: false,
                     timer: 3000
                 });
-                // location.reload();
             }
             else if (response.status == "zrobione") {
                 window.location = "gra.html";

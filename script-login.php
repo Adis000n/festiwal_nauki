@@ -30,6 +30,10 @@ if(isset($_GET['klasa']) && isset($_GET['klucz'])) {
             if (mysqli_query($con, $sql)) {
                 $response['status'] = "nowy";
                 $response['api_key'] = $api_key;
+                $response['klasa'] = $klasa;
+                $response['start'] = $start;
+                $response['nr_pytanie'] = 1; 
+                $response['wynik'] = 0; 
             } else {
                 $response['status'] = "Error";
                 $response['message'] = "Error: " . $sql . "<br>" . mysqli_error($con);
