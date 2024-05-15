@@ -432,7 +432,7 @@ function showQuestion() {
                                 xhr6.onreadystatechange = function () {
                                     if (xhr6.readyState === 4 && xhr6.status === 200) {
                                         const response = xhr6.responseText;
-                                        if (response.toLowerCase() == selectedOption.toLowerCase()) {
+                                        if (response == "dobrze") {
                                             wynik += 1;
                                             document.getElementById("wynik-wys").innerHTML = "Wynik: " + wynik;
                                             hideLoader2();
@@ -463,7 +463,7 @@ function showQuestion() {
                                         }
                                     }
                                 };
-                                xhr6.open('GET', `script-poprawna.php?pytanie_nr=${pytanie_nr}`, true);
+                                xhr6.open('GET', `script-poprawna.php?api_key=${api_key}&selectedOption=${selectedOption}`, true);
                                 xhr6.send();
                                 document.getElementById('pytanie').setAttribute('hidden', true);
                                 document.getElementById('questionbut').removeAttribute('hidden');

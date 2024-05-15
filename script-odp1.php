@@ -50,7 +50,7 @@ if(isset($_GET['api_key']) && isset($_GET['answerValue'])) {
         echo "Api key nie należy do żadnej klasy.";
     }
 } else {
-    echo "Error: pytanie_nr nie jest ustawiony";
+    echo "Error: api_key i odpowiedzi nie jest ustawiony";
 }
 
 mysqli_close($con);
