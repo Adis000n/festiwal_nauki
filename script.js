@@ -195,19 +195,14 @@ function pozycja(pytanie_numer) {
             setPozycja(411, 349);
             document.getElementById('questionbut').setAttribute('hidden', true);
             document.getElementById('questionbut').setAttribute('hidden', true);
-            const now = new Date();
-            const czas_kon = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "skrypt-czas.php", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            const xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     console.log(xhr.responseText);
                 }
             };
-            var data = "klasa=" + encodeURIComponent(klasa) + "&start=" + encodeURIComponent(start) + "&koniec=" + encodeURIComponent(czas_kon) + "&wynik=" + encodeURIComponent(wynik);
-            xhr.send(data);
+            xhr.open('GET', `skrypt-czas.php?api_key=${api_key}`, true);
+            xhr.send();
 
             //konfetti POCZĄTEK =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-==-=-==-==-=-==-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
             const duration = 15 * 1000,
@@ -241,6 +236,7 @@ function pozycja(pytanie_numer) {
                 );
             }, 250);
             //konfetti KONIEC =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-==-=-==-==-=-==-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+            document.cookie = "api_key=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";   
             koniec();
     }
 }
@@ -472,7 +468,6 @@ function showQuestion() {
                                 document.getElementById('pytanie-tresc').innerHTML = "";
                                 pytanie_nr += 1;
                                 pozycja(pytanie_nr);
-
                             });
                             document.getElementById('answer-form').style.display = 'grid';
                             document.getElementById('answer-form').style.gridTemplateColumns = 'repeat(2, 1fr)';
@@ -483,7 +478,7 @@ function showQuestion() {
                         checkIfBothLoaded();
                     }
                 };
-                xhr5.open('GET', `script-odpowiedzi.php?pytanie_nr=${pytanie_nr}`, true);
+                xhr5.open('GET', `script-odpowiedzi.php?api_key=${api_key}`, true);
                 xhr5.send();
 
             }
@@ -512,7 +507,7 @@ function showQuestion() {
                     xhr4.onreadystatechange = function () {
                         if (xhr4.readyState === 4 && xhr4.status === 200) {
                             const response = xhr4.responseText;
-                            if (response.toLowerCase() == "true") {
+                            if (response == "dobrze") {
                                 wynik += 1;
                                 document.getElementById("wynik-wys").innerHTML = "Wynik: " + wynik;
                                 hideLoader2();
@@ -543,7 +538,7 @@ function showQuestion() {
                             }
                         }
                     };
-                    xhr4.open('GET', `script-odp1.php?pytanie_nr=${pytanie_nr}`, true);
+                    xhr4.open('GET', `script-true.php?api_key=${api_key}`, true);
                     xhr4.send();
                     document.getElementById('pytanie').setAttribute('hidden', true);
                     document.getElementById('questionbut').removeAttribute('hidden');
@@ -560,7 +555,7 @@ function showQuestion() {
                     xhr4.onreadystatechange = function () {
                         if (xhr4.readyState === 4 && xhr4.status === 200) {
                             const response = xhr4.responseText;
-                            if (response.toLowerCase() == "false") {
+                            if (response == "dobrze") {
                                 wynik += 1;
                                 document.getElementById("wynik-wys").innerHTML = "Wynik: " + wynik;
                                 hideLoader2();
@@ -591,7 +586,7 @@ function showQuestion() {
                             }
                         }
                     };
-                    xhr4.open('GET', `script-odp1.php?pytanie_nr=${pytanie_nr}`, true);
+                    xhr4.open('GET', `script-false.php?api_key=${api_key}`, true);
                     xhr4.send();
                     document.getElementById('pytanie').setAttribute('hidden', true);
                     document.getElementById('questionbut').removeAttribute('hidden');
@@ -687,7 +682,10 @@ function startLogin() {
                 document.getElementById('questionbut').removeAttribute('hidden');
                 document.getElementById('start').setAttribute('hidden', true);
                 document.getElementById('overlay').setAttribute('hidden', true);
-                document.cookie = "api_key=" + response.api_key + "; path=/;";
+                var expirationDate = new Date();
+                expirationDate.setDate(expirationDate.getDate() + 7);
+                var expires = expirationDate.toUTCString();
+                document.cookie = "api_key=" + response.api_key + "; expires=" + expires + "; path=/;";
                 timerFunc();
                 api_key = getCookie("api_key");
             }
@@ -782,6 +780,7 @@ function koniec() {
         }).then((result) => {
             disableUnloadAlert();
             if (result.isConfirmed) {
+                
                 window.location = "wyniki.php";
             }
         });

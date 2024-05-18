@@ -77,7 +77,7 @@ SET SQL_SAFE_UPDATES = 0;
 
 delimiter //
 create trigger czas_wynik
-before insert on klasa
+before update on klasa
 for each row
 begin
    
