@@ -70,10 +70,10 @@ body {
 
   .loader {
     transform: rotateZ(45deg);
-    perspective: 300px;
+    perspective: 200px;
     border-radius: 0%;
-    width: 10vh;
-    height: 10vh;
+    width: 11vh;
+    height: 11vh;
     color: #00a6ff;
   }
     .loader:before,

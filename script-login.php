@@ -13,12 +13,7 @@ if(isset($_GET['klasa']) && isset($_GET['klucz'])) {
         
         if (mysqli_num_rows($check_result) > 0) {
             $existing_record = mysqli_fetch_assoc($check_result);
-            if(intval($existing_record['nr_pytanie']) == 49){
-                $response['status'] = "zrobione";
-            }
-            else{
-                $response['status'] = "istnieje";
-            }
+            $response['status'] = "istnieje";
             $response['klasa'] = $existing_record['nazwa'];
             $response['start'] = $existing_record['czas_start'];
             $response['nr_pytanie'] = intval($existing_record['nr_pytanie']);

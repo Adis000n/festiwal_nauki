@@ -265,9 +265,7 @@ function preventUnload(event) {
     return confirmationMessage;
 }
 
-window.addEventListener('beforeunload', preventUnload);
 
-window.addEventListener('submit', disableUnloadAlert);
 
 document.addEventListener("DOMContentLoaded", function () {
     // Get true/false buttons
@@ -640,6 +638,8 @@ function fetchUserInfo(api_key) {
                 document.getElementById('questionbut').removeAttribute('hidden');
                 document.getElementById('start').setAttribute('hidden', true);
                 document.getElementById('overlay').setAttribute('hidden', true);
+                window.addEventListener('beforeunload', preventUnload);
+                window.addEventListener('submit', disableUnloadAlert);
                 timerFunc();
             }
             else if (response.status == "zrobione") {
@@ -652,6 +652,8 @@ function fetchUserInfo(api_key) {
 }
 
 function startLogin() {
+    window.addEventListener('beforeunload', preventUnload);
+    window.addEventListener('submit', disableUnloadAlert);
     showLoader2();
     const inputKlasa = document.querySelector('input[name="klasa"]');
     const inputKlucz = document.querySelector('input[name="klucz"]');
@@ -700,9 +702,6 @@ function startLogin() {
                     showConfirmButton: false,
                     timer: 3000
                 });
-            }
-            else if (response.status == "zrobione") {
-                window.location = "gra.html";
             }
         }
     };
