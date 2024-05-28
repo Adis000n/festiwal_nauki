@@ -1,8 +1,22 @@
+html{
+  --s: 70px; /* control the size */
+    --c: rgb(107, 83, 68, 0.5);
+    
+    --_l: #0000 46%,var(--c) 47% 53%,#0000 54%;
+    background:
+      radial-gradient(100% 100% at 100% 100%,var(--_l)) var(--s) var(--s),
+      radial-gradient(100% 100% at 0    0   ,var(--_l)) var(--s) var(--s),
+      radial-gradient(100% 100%,#0000 22%,var(--c) 23% 29%, #0000 30% 34%,var(--c) 35% 41%,#0000 42%)
+      #00296b;
+    background-size: calc(var(--s)*2) calc(var(--s)*2);
+
+}
+
 body {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    background-color: rgba(0, 41, 107, 1);
+    align-items: left;
+    /* background-color: #00296b; */
     font-family: "Poppins", sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -12,22 +26,39 @@ body {
 h1 {
     color: #ffffff;
     font-size: 8vh;
-    border-bottom: 4px solid #FDC500;
+    /* border-bottom: 4px solid #FDC500; */
     padding: 10px;
+    
+}
+#records{
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  justify-self: center;
+  align-items: center;
+  align-self: center;
+  align-content: center;
 }
 .record {
-
-    padding: 2.0vh;
-    font-size: 3vh;
-    margin-bottom: 1vh;
-    border-radius: 2vh;
-    margin-top: 0.5vh;
-    background-color: rgba(253, 197, 0,1);
+  width: 50vh;
+  padding: 2.0vh;
+  font-size: 3vh;
+  margin-bottom: 1vh;
+  border-radius: 2vh;
+  margin-top: 0.5vh;
+  background-color: rgba(253, 197, 0,1);
+  align-items: center;
+  color: white; 
+  text-align: center;
+  justify-content: flex-start;
+  color: rgba(0, 0, 0, 1);
+  display: flex;
+  justify-content: center;
+    justify-items: center;
+    justify-self: center;
     align-items: center;
-    
-    justify-content: flex-start;
-    color: rgba(0, 0, 0, 1);
-
+    align-self: center;
+    align-content: center;
   }
 .licznik{
   
@@ -38,21 +69,41 @@ h1 {
   align-items: center;
   justify-content: center;
   font-style: normal;
-
-
+  /* margin-left: 4vh; */
+  text-align: center;
 }
 /* PANI FIBINGER JEST MILFEM */
 .record p {
     margin: 0.1em;;
+    
    }
 header{
     width: 100vh;
-
     align-items: justify;
     justify-content: normal;
-    text-align: center;
+    text-align: left;
+    margin-left: 2vh;
 }
 .all{
     flex-direction: row;
     /* background-color: ; */
+    justify-content: center;
+    justify-items: center;
+    justify-self: center;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+}
+hr{
+    width: 100%;
+    height: 1VH;
+    opacity: 0.0;
+    color: red; 
+    margin: 0;
+    background-color: red;
+}
+.hr{
+  border-radius: 1vh;
+  background-color: rgba(253, 198, 0, 0.785);
+  margin: 0;
 }

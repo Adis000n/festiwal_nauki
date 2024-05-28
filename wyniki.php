@@ -4,22 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wyniki - festiwal nauki</title>
-  <link rel="stylesheet" href="stylewynik.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="stylewynik.css"> 
+   <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@500&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="graphics/favicon.png" type="image/x-icon">
-    <link rel="shortcut icon" href="graphics/pawn.png" type="image/x-icon">
+    <link rel="shortcut icon" href="graphics/pawn.png" type="image/x-icon"> 
 </head>
 <body>
-    <style>
 
-
- 
-    </style>
   <header>
-  <h1>Wyniki</h1></header>
+  <h1>Tablica Wyników:</h1></header>
+
+  <div class="hr"><hr></div>
   <div id="records">
     <?php
   include 'db_spec.php';
@@ -39,7 +37,7 @@
           echo '<div class="record">';
           
           foreach ($row as $key => $value) {
-            echo "<p> <strong>$key:</strong> $value</p>";
+            echo "<p> <strong>".ucfirst($key).":</strong> $value</p>";
           }
           echo '</div>';$licznik++;
           echo'</div>';
@@ -53,5 +51,6 @@
       mysqli_close($con);
     ?>
   </div>
+  <div class="hr"><hr></div>
 </body>
 </html>
