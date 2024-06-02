@@ -6,6 +6,8 @@ if(isset($_GET['klasa']) && isset($_GET['klucz'])) {
     $klasa = $_GET['klasa'];
     $klucz = $_GET['klucz'];
     $start = date("H:i:s");
+    $klasa = mysqli_real_escape_string($con, $klasa);
+    $klucz = mysqli_real_escape_string($con, $klucz);
 
     if(hash('sha256', $klucz) == "d079b341029f5e7b174de5963d79067c0ea234266e5083e58d729b62a0dcabee") {
         $check_query = "SELECT * FROM klasa WHERE nazwa = '$klasa'";

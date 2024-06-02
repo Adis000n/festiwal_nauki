@@ -8,6 +8,7 @@ mysqli_set_charset($con, "utf8");
 // Check if api_key is set in the URL
 if(isset($_GET['api_key'])) {
     $api_key = $_GET['api_key'];
+    $api_key = mysqli_real_escape_string($con, $api_key);
 
     $query2 = "SELECT * FROM klasa WHERE api_key='$api_key' LIMIT 1;";
     $result2 = mysqli_query($con, $query2);
