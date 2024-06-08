@@ -38,7 +38,7 @@
           
           foreach ($row as $key => $value) {
             if($key=="wynik"){
-                $key="Czas";
+                $key="Czas ";
             }
             // if($key=="punkty"){
             //   $key="Ilośc punktów";
