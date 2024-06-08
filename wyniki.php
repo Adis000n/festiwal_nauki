@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wyniki - festiwal nauki</title>
+  <title>Wyniki - Festiwal nauki</title>
   <link rel="stylesheet" href="stylewynik.css"> 
    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,6 +37,12 @@
           echo '<div class="record">';
           
           foreach ($row as $key => $value) {
+            if($key=="wynik"){
+                $key="Czas";
+            }
+            // if($key=="punkty"){
+            //   $key="Ilośc punktów";
+            // };
             echo "<p> <strong>".ucfirst($key).":</strong> $value</p>";
           }
           echo '</div>';$licznik++;
