@@ -9,7 +9,7 @@ if(isset($_GET['klasa']) && isset($_GET['klucz'])) {
     $klasa = mysqli_real_escape_string($con, $klasa);
     $klucz = mysqli_real_escape_string($con, $klucz);
 
-    if(hash('sha256', $klucz) == "d079b341029f5e7b174de5963d79067c0ea234266e5083e58d729b62a0dcabee") {
+    if(hash('sha256', $klucz) == "e950edf04f10999f21228307f91aa1d3268425e07d4c05c9f6a9076571b447b8") {
         $check_query = "SELECT * FROM klasa WHERE nazwa = '$klasa'";
         $check_result = mysqli_query($con, $check_query);
         

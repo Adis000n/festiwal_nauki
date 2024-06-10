@@ -378,10 +378,6 @@ input{
     color: #fff;
     text-decoration: none;
   }
-  
-  .button-87:active {
-    transform: scale(0.1);
-  }
   #nav{
     z-index: 50;
     position: absolute;
